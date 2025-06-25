@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rostock Drohnenvideografie | Luftaufnahmen & Filmproduktion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1630&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            transition: all 0.5s ease;
+            transform-origin: top;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .scrolled .hero-bg {
+            height: 60vh;
+            transform: scale(0.9);
+        }
+
+        .scrolled .hero-content {
+            transform: translateY(-20%);
+        }
+        .video-card:hover .play-icon {
+            transform: scale(1.2);
+            opacity: 0.9;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        #booking-form input, #booking-form textarea, #booking-form select {
+            transition: all 0.3s ease;
+        }
+        #booking-form input:focus, #booking-form textarea:focus, #booking-form select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .map-container {
+            height: 400px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        #service-popup {
+            transition: opacity 0.3s ease;
+        }
+
+        #service-popup > div:last-child {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-drone-alt text-blue-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">Rostock Drohnenfilm</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#about" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Über uns</a>
+                    <a href="#services" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Leistungen</a>
+                    <a href="#portfolio" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Portfolio</a>
+                    <a href="#pricing" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Videopakete</a>
+                    <a href="#booking" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition duration-300">Anfrage senden</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Hauptmenü öffnen</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Über uns</a>
+                <a href="#services" class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Leistungen</a>
+                <a href="#portfolio" class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Portfolio</a>
+                <a href="#pricing" class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Videopakete</a>
+                <a href="#booking" class="bg-blue-600 text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition duration-300">Anfrage senden</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-bg text-white flex items-center justify-center">
+        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-[fadeInUp_1s_ease-out]">Professionelle Drohnenvideos aus Rostock</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto animate-[fadeInUp_1s_ease-out_0.2s_forwards] opacity-0">Beeindruckende Luftaufnahmen für Ihr Projekt – innerhalb von 20km um Rostock</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#booking" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Jetzt anfragen</a>
+                <a href="#portfolio" class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-6 rounded-lg transition duration-300">Portfolio ansehen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Über mich</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/3">
+                            <div class="h-48 w-48 mx-auto rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shadow-lg">
+                                <i class="fas fa-user text-blue-600 text-6xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3 text-left">
+                            <p class="text-lg text-gray-600 mb-4">
+                                Ich bin 15 Jahre alt und fliege seit über einem Jahr leidenschaftlich Drohnen. Was als Hobby begann, hat sich zu einer professionellen Dienstleistung entwickelt, mit der ich beeindruckende Luftaufnahmen für Kunden in Rostock und Umgebung erstelle.
+                            </p>
+                            <p class="text-lg text-gray-600">
+                                Dank meiner jahrelangen Erfahrung ermöglicht es mir einzigartige Perspektiven für Ihre Videoprojekte zu finden. Ich lege großen Wert auf Qualität und Professionalität in jeder Aufnahme.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Unsere Leistungen</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Professionelle Drohnenaufnahmen für verschiedene Anlässe und Projekte in Rostock und Umgebung</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:animate-[pulse_1s_ease-in-out] animate-[fadeInUp_0.5s_ease-out]">
+                    <div class="h-48 bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-home text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Immobilienvideografie</h3>
+                        <p class="text-gray-600 mb-4">Präsentieren Sie Immobilien aus der Vogelperspektive mit professionellen Drohnenaufnahmen, die den Wert Ihrer Objekte unterstreichen.</p>
+                        <button onclick="showServicePopup('Immobilienvideografie')" class="flex items-center text-blue-600 font-medium hover:text-blue-800 cursor-pointer">
+                            <span>Mehr erfahren</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="h-48 bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-ring text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Hochzeitsfilme</h3>
+                        <p class="text-gray-600 mb-4">Einzigartige Luftaufnahmen Ihrer Hochzeitslocation und des Brautpaares für einen unvergesslichen Film Ihres besonderen Tages.</p>
+                        <button onclick="showServicePopup('Hochzeitsfilme')" class="flex items-center text-blue-600 font-medium hover:text-blue-800 cursor-pointer">
+                            <span>Mehr erfahren</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="h-48 bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-flag text-blue-600 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Eventdokumentation</h3>
+                        <p class="text-gray-600 mb-4">Ob Konzert, Sportevent oder Firmenfeier - unsere Drohnenaufnahmen zeigen Ihre Veranstaltung aus einer neuen Perspektive.</p>
+                        <button onclick="showServicePopup('Eventdokumentation')" class="flex items-center text-blue-600 font-medium hover:text-blue-800 cursor-pointer">
+                            <span>Mehr erfahren</span>
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Unser Portfolio</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Beispiele unserer Drohnenaufnahmen aus Rostock und Umgebung</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                <!-- Video 1 -->
+                <div class="video-card bg-white rounded-lg overflow-hidden shadow-md relative group hover:animate-[float_3s_ease-in-out_infinite]">
+                    <div class="h-64 bg-gray-800 flex items-center justify-center relative">
+                        <img src="bilder/skyline.jpg" alt="Ihr Bild" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-900">Bentwischer Skyline</h3>
+                        <p class="text-gray-600">Panoramablick über Bentwisch bei Sonnenuntergang</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-sm text-gray-500">1:13 min</span>
+                            <div>
+                                <span class="text-sm font-medium text-blue-600">€50</span>
+                                <button class="ml-3 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition duration-300" onclick="selectVideo('Bentwischer Skyline', 50)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video 3 -->
+                <div class="video-card bg-white rounded-lg overflow-hidden shadow-md relative group">
+                    <div class="h-64 bg-gray-800 flex items-center justify-center relative">
+                        <img src="bilder/wildnis.jpg" alt="Ihr Bild" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-900">Ruf der Wildnis</h3>
+                        <p class="text-gray-600">Historisches Gutshaus mit Parkanlage in der Rostocker Umgebung</p>
+                        <div class="mt-3 flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2 min</span>
+                            <div>
+                                <span class="text-sm font-medium text-blue-600">65€</span>
+                                <button class="ml-3 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition duration-300" onclick="selectVideo('Ruf der Wildnis', 65)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Videopakete</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Flexible Optionen für Ihre Drohnenaufnahmen</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Basic Package -->
+                <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden animate-[fadeInUp_0.5s_ease-out] hover:shadow-lg transition-all duration-300">
+                    <div class="px-6 py-8 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Basic</h3>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-4xl font-bold text-gray-900">€30</span>
+                            <span class="ml-1 text-lg font-medium text-gray-500">/Video</span>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">Grundpaket für einfache Drohnenaufnahmen</p>
+                    </div>
+                    <div class="px-6 pt-6 pb-8">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Bis zu 2 Minuten fertiges Video</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">HD-Auflösung (1080p)</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Bis zu 30 Minuten Flugzeit</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-gray-400">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-500 line-through">4K-Auflösung</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-gray-400">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-500 line-through">Nachbearbeitung</p>
+                            </li>
+                        </ul>
+                        <div class="mt-8">
+                            <a href="#booking" class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition duration-300">Jetzt buchen</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Package -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform scale-105 z-10 border-2 border-blue-600">
+                    <div class="px-6 py-8 border-b border-gray-200 bg-blue-600 text-white">
+                        <h3 class="text-lg font-medium">Professional</h3>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-4xl font-bold">€60</span>
+                            <span class="ml-1 text-lg font-medium opacity-80">/Video</span>
+                        </div>
+                        <p class="mt-2 text-sm opacity-90">Bestseller für anspruchsvolle Projekte</p>
+                    </div>
+                    <div class="px-6 pt-6 pb-8">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Bis zu 5 Minuten fertiges Video</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">4K-Auflösung</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Bis zu 60 Minuten Flugzeit</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Grundlegende Nachbearbeitung</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">2 Revisionsrunden</p>
+                            </li>
+                        </ul>
+                        <div class="mt-8">
+                            <a href="#booking" class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition duration-300">Jetzt buchen</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Premium Package -->
+                <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden">
+                    <div class="px-6 py-8 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Premium</h3>
+                        <div class="mt-4 flex items-baseline">
+                            <span class="text-4xl font-bold text-gray-900">€100</span>
+                            <span class="ml-1 text-lg font-medium text-gray-500">/Video</span>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">Komplettpaket für professionelle Produktionen</p>
+                    </div>
+                    <div class="px-6 pt-6 pb-8">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Bis zu 10 Minuten fertiges Video</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">4K HDR-Auflösung</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Bis zu 90 Minuten Flugzeit</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">Professionelle Nachbearbeitung</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <p class="ml-3 text-base text-gray-700">5 Revisionsrunden</p>
+                            </li>
+                        </ul>
+                        <div class="mt-8">
+                            <a href="#booking" class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition duration-300">Jetzt buchen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-blue-50 rounded-lg p-6">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                            <i class="fas fa-info-circle text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-lg font-medium text-gray-900">Individuelle Anfragen</h3>
+                        <p class="mt-1 text-sm text-gray-600">Sie benötigen ein maßgeschneidertes Paket? Kontaktieren Sie uns für ein individuelles Angebot, das genau auf Ihre Anforderungen zugeschnitten ist.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coverage Area Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Unser Einsatzgebiet</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Wir bieten unsere Drohnenvideografie-Dienste innerhalb eines 20km Radius um Rostock an</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d38842.0625181831!2d12.0795075!3d54.092441299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47ac5b760a7b2a2b%3A0x4224e5d2d7a5b0!2sRostock!5e0!3m2!1sen!2sde!4v1689682230103!5m2!1sen!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Wir decken diese Orte ab:</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-600 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-900 font-medium">Warnemünde</p>
+                                <p class="text-gray-600 text-sm">Ostseebad mit Strandpromenade</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-600 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-900 font-medium">Graal-Müritz</p>
+                                <p class="text-gray-600 text-sm">Kurort mit Seebrücke</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-600 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-900 font-medium">Bad Doberan</p>
+                                <p class="text-gray-600 text-sm">Historische Innenstadt</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-600 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-900 font-medium">Kröpelin</p>
+                                <p class="text-gray-600 text-sm">Kleinstadt mit Windmühle</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-600 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-900 font-medium">Satow</p>
+                                <p class="text-gray-600 text-sm">Ländliche Umgebung</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-600 mt-1">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-900 font-medium">Sanitz</p>
+                                <p class="text-gray-600 text-sm">Gemeinde mit See</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-yellow-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-yellow-700">
+                                    <span class="font-medium">Hinweis:</span> Für Einsätze außerhalb des 20km Radius berechnen wir eine zusätzliche Anfahrtspauschale. Kontaktieren Sie uns für ein individuelles Angebot.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8">
+                <div class="mb-12 lg:mb-0">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Drohnenaufnahmen anfragen</h2>
+                    <p class="text-lg text-gray-600 mb-6">Füllen Sie das Formular aus, um eine unverbindliche Anfrage für Drohnenaufnahmen in Rostock und Umgebung zu senden. Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-medium text-gray-900 mb-3">Was Sie erwarten können:</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Schnelle Rückmeldung innerhalb von 24 Stunden</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Transparente Preise ohne versteckte Kosten</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Professionelle Beratung zu Ihrem Projekt</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 text-green-500 mt-1">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-gray-700">Flexible Terminvereinbarung</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center">
+                        <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                            <i class="fas fa-phone-alt text-blue-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600">Oder rufen Sie uns direkt an:</p>
+                            <a href="tel:+49123456789" class="text-lg font-medium text-blue-600 hover:text-blue-700">+49 123 456789</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <div class="px-6 py-5 bg-gray-50 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900">Anfrageformular</h3>
+                        </div>
+                        <div class="px-6 py-6">
+                            <form id="booking-form" onsubmit="return sendEmail()">
+                                
+                                <div class="space-y-6">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium text-gray-700">Name *</label>
+                                        <div class="mt-1">
+                                            <input type="text" name="name" id="name" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-gray-700">E-Mail *</label>
+                                        <div class="mt-1">
+                                            <input type="email" name="email" id="email" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="phone" class="block text-sm font-medium text-gray-700">Telefonnummer</label>
+                                        <div class="mt-1">
+                                            <input type="tel" name="phone" id="phone" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="location" class="block text-sm font-medium text-gray-700">Ort der Aufnahmen *</label>
+                                        <div class="mt-1">
+                                            <input type="text" name="location" id="location" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Bitte geben Sie den genauen Ort innerhalb von 20km um Rostock an">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="date" class="block text-sm font-medium text-gray-700">Gewünschter Termin *</label>
+                                            <div class="mt-1">
+                                                <input type="date" name="date" id="date" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="time" class="block text-sm font-medium text-gray-700">Uhrzeit</label>
+                                            <div class="mt-1">
+                                                <input type="time" name="time" id="time" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="service" class="block text-sm font-medium text-gray-700">Art der Aufnahmen *</label>
+                                        <div class="mt-1">
+                                            <select id="service" name="service" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                                <option value="">Bitte auswählen</option>
+                                                <option value="Immobilien">Immobilien</option>
+                                                <option value="Hochzeit">Hochzeit</option>
+                                                <option value="Event">Event</option>
+                                                <option value="Landschaft">Landschaft</option>
+                                                <option value="Werbung">Werbung</option>
+                                                <option value="Andere">Andere</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="package" class="block text-sm font-medium text-gray-700">Gewünschtes Paket</label>
+                                        <div class="mt-1">
+                                            <select id="package" name="package" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                                <option value="">Noch unsicher</option>
+                                                <option value="Basic">Basic (€30)</option>
+                                                <option value="Professional">Professional (€60)</option>
+                                                <option value="Premium">Premium (€100)</option>
+                                                <option value="Custom">Individuelles Angebot</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="details" class="block text-sm font-medium text-gray-700">Details zu Ihrem Projekt *</label>
+                                        <div class="mt-1">
+                                            <textarea id="details" name="details" rows="4" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Beschreiben Sie bitte Ihr Projekt, besondere Wünsche und Anforderungen"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="privacy" name="privacy" type="checkbox" required class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="privacy" class="font-medium text-gray-700">Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#" class="text-blue-600 hover:text-blue-500">Datenschutzerklärung</a> zu *</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                                            Anfrage senden
+                                            <i class="fas fa-paper-plane ml-2"></i>
+                                        </button>
+                                    </div>
+                                    <div id="form-success" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                                        Vielen Dank! Ihre Anfrage wurde erfolgreich versendet.
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Häufige Fragen</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Antworten auf die am häufigsten gestellten Fragen zu unseren Drohnenaufnahmen</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <button class="faq-question w-full px-6 py-5 text-left focus:outline-none">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-medium text-gray-900">In welchem Radius um Rostock bieten Sie Ihre Dienste an?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </div>
+                        </button>
+                        <div class="faq-answer px-6 pb-5 hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+                            <p class="text-gray-600">Wir bieten unsere Drohnenvideografie-Dienste innerhalb eines 20km Radius um das Zentrum von Rostock an. Dies umfasst Orte wie Warnemünde, Graal-Müritz, Bad Doberan, Kröpelin, Satow und Sanitz. Für Einsätze außerhalb dieses Radius berechnen wir eine zusätzliche Anfahrtspauschale.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <button class="faq-question w-full px-6 py-5 text-left focus:outline-none">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-medium text-gray-900">Benötige ich eine Genehmigung für Drohnenaufnahmen?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </div>
+                        </button>
+                        <div class="faq-answer px-6 pb-5 hidden">
+                            <p class="text-gray-600">Als professioneller Drohnenpilot besitze ich alle notwendigen Genehmigungen und Versicherungen für gewerbliche Drohnenflüge. Für die meisten Aufnahmen in Rostock und Umgebung sind keine zusätzlichen Genehmigungen erforderlich. In bestimmten Fällen (z.B. in Kontrollzonen von Flughäfen oder über Menschenansammlungen) beantragen wir die notwendigen Genehmigungen rechtzeitig vor dem Dreh.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <button class="faq-question w-full px-6 py-5 text-left focus:outline-none">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-medium text-gray-900">Wie lange dauert es, bis ich mein fertiges Video erhalte?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </div>
+                        </button>
+                        <div class="faq-answer px-6 pb-5 hidden">
+                            <p class="text-gray-600">Die Bearbeitungszeit hängt vom Umfang des Projekts ab. Für einfache Aufnahmen (Basic-Paket) beträgt die Bearbeitungszeit in der Regel 3-5 Werktage. Professionelle und Premium-Pakete mit umfangreicher Nachbearbeitung benötigen 7-10 Werktage. Bei dringenden Projekten bieten wir gegen Aufpreis auch Express-Bearbeitung innerhalb von 48 Stunden an.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 4 -->
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <button class="faq-question w-full px-6 py-5 text-left focus:outline-none">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-medium text-gray-900">Kann ich die Aufnahmen auch für kommerzielle Zwecke nutzen?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </div>
+                        </button>
+                        <div class="faq-answer px-6 pb-5 hidden">
+                            <p class="text-gray-600">Ja, alle von uns erstellten Drohnenaufnahmen können uneingeschränkt für private und kommerzielle Zwecke genutzt werden. Sie erhalten die vollständigen Nutzungsrechte an den Aufnahmen. Bei Verwendung unserer Standardmusik in den Videos müssen Sie keine zusätzlichen Lizenzen erwerben.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 5 -->
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <button class="faq-question w-full px-6 py-5 text-left focus:outline-none">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-medium text-gray-900">Was passiert bei schlechtem Wetter am Drehtag?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </div>
+                        </button>
+                        <div class="faq-answer px-6 pb-5 hidden">
+                            <p class="text-gray-600">Drohnenflüge sind bei Regen, starkem Wind oder schlechter Sicht nicht möglich. Wir behalten die Wettervorhersage im Blick und melden uns spätestens 24 Stunden vor dem Termin, falls eine Verschiebung notwendig sein sollte. Sie zahlen erst, wenn die Aufnahmen tatsächlich durchgeführt wurden. Wir finden gemeinsam einen Ersatztermin, der Ihnen passt.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-center">
+                    <p class="text-gray-600">Sie haben weitere Fragen?</p>
+                    <a href="#booking" class="inline-flex items-center mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                        Kontaktieren Sie uns
+                        <i class="fas fa-envelope ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Rostock Drohnenfilm</h3>
+                    <p class="text-gray-400">Professionelle Drohnenvideografie in Rostock und Umgebung. Beeindruckende Luftaufnahmen für Ihr Projekt.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Leistungen</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Immobilienvideografie</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Hochzeitsfilme</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Eventdokumentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Landschaftsaufnahmen</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Werbefilme</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Informationen</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Über uns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Portfolio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Preise</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Kontakt</h3>
+                    <ul class="space-y-2">
+                      
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-gray-400"></i>
+                            <a href="mailto:drohnen.film.hro@gmail.com" class="text-gray-400 hover:text-white">drohnen.film.hro@gmail.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-gray-400"></i>
+                            <a href="tel:+49123456789" class="text-gray-400 hover:text-white">+49 123 456789</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2023 Rostock Drohnenfilm. Alle Rechte vorbehalten.</p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Impressum</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Datenschutz</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">AGB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Service Info Popups -->
+    <div id="service-popup" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="relative max-w-2xl mx-auto mt-12 bg-white rounded-lg shadow-xl overflow-hidden">
+            <button id="close-popup" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div class="p-8">
+                <h3 id="popup-title" class="text-2xl font-bold text-gray-900 mb-4"></h3>
+                <div id="popup-content" class="text-gray-600 space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Service content definitions
+        const serviceContents = {
+            'Immobilienvideografie': `
+                <p>Unsere Immobilienvideografie bietet Ihnen atemberaubende Luftaufnahmen Ihrer Immobilien, die potenzielle Käufer oder Mieter beeindrucken werden.</p>
+                <p><strong>Vorteile:</strong></p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Präsentation des gesamten Grundstücks aus der Vogelperspektive</li>
+                    <li>Hervorhebung der Lage und Umgebung</li>
+                    <li>Professionelle Nachbearbeitung für optimalen Eindruck</li>
+                    <li>Individuelle Gestaltung nach Ihren Wünschen</li>
+                </ul>
+                <p>Ideal für Makler, Bauträger und private Verkäufer, die ihre Immobilie optimal präsentieren möchten.</p>
+            `,
+            'Hochzeitsfilme': `
+                <p>Verleihen Sie Ihrem Hochzeitsfilm eine besondere Perspektive mit unseren Drohnenaufnahmen.</p>
+                <p><strong>Was wir bieten:</strong></p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Atemberaubende Aufnahmen Ihrer Hochzeitslocation</li>
+                    <li>Luftaufnahmen des Brautpaares und der Gäste</li>
+                    <li>Professionelle Schnitt- und Nachbearbeitung</li>
+                    <li>Kombination mit Bodenaufnahmen möglich</li>
+                    <li>Individuelle musikalische Untermalung</li>
+                </ul>
+                <p>Erhalten Sie einen Film, der Ihren besonderen Tag perfekt einfängt und Ihnen lebenslange Erinnerungen schenkt.</p>
+            `,
+            'Eventdokumentation': `
+                <p>Machen Sie Ihre Veranstaltung unvergesslich mit spektakulären Luftaufnahmen.</p>
+                <p><strong>Unsere Leistungen:</strong></p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Dynamische Aufnahmen von Großveranstaltungen</li>
+                    <li>Einzigartige Perspektiven für Sportevents</li>
+                    <li>Beeindruckende Aufnahmen von Firmenfeiern</li>
+                    <li>Professionelle Nachbearbeitung mit Ihrem Branding</li>
+                    <li>Optionale Live-Übertragung</li>
+                </ul>
+                <p>Perfekt für Eventmanager, Marketingabteilungen und Veranstalter, die ihren Gästen etwas Besonderes bieten möchten.</p>
+            `
+        };
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle answer visibility with animation
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = '0';
+                    setTimeout(() => answer.classList.add('hidden'), 300);
+                }
+                
+                // Rotate icon
+                icon.classList.toggle('transform');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+
+        // Portfolio video selection
+        let selectedVideo = null;
+        
+        function selectVideo(title, price) {
+            selectedVideo = {title, price};
+            document.getElementById('package').value = 'Portfolio';
+            document.getElementById('details').value = `Ich möchte das Portfolio-Video "${title}" für ${price}€ kaufen`;
+            document.getElementById('booking').scrollIntoView({behavior: 'smooth'});
+            alert(`"${title}" wurde zu Ihrer Anfrage hinzugefügt. Bitte überprüfen Sie das Formular unten.`);
+        }
+
+        // Email sending function
+        function sendEmail() {
+            const form = document.getElementById('booking-form');
+            const formData = new FormData(form);
+            const formValues = Object.fromEntries(formData.entries());
+            
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
+            submitBtn.disabled = true;
+
+            // Send data to server
+            fetch('https://formspree.io/f/xyzjbjgj', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formValues.name,
+                    email: formValues.email,
+                    phone: formValues.phone,
+                    location: formValues.location,
+                    date: formValues.date,
+                    time: formValues.time,
+                    service: formValues.service,
+                    package: formValues.package,
+                    details: formValues.details,
+                    _replyto: formValues.email,
+                    _subject: `Neue Drohnenaufnahmen-Anfrage von ${formValues.name}`
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    document.getElementById('form-success').classList.remove('hidden');
+                    form.reset();
+                    
+                    // Scroll to success message
+                    setTimeout(() => {
+                        document.getElementById('form-success').scrollIntoView({behavior: 'smooth'});
+                    }, 100);
+                } else {
+                    throw new Error('Fehler beim Senden der Anfrage');
+                }
+            })
+            .catch(error => {
+                alert('Es gab ein Problem beim Senden Ihrer Anfrage. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per Telefon.');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            });
+            
+            return false;
+        }
+
+        // Scroll animation for hero section
+        window.addEventListener('scroll', function() {
+            const heroSection = document.getElementById('hero');
+            if (window.scrollY > 50) {
+                heroSection.classList.add('scrolled');
+            } else {
+                heroSection.classList.remove('scrolled');
+            }
+        });
+
+        // Service popup functions
+        function showServicePopup(serviceName) {
+            const popup = document.getElementById('service-popup');
+            const popupTitle = document.getElementById('popup-title');
+            const popupContent = document.getElementById('popup-content');
+            
+            popupTitle.textContent = serviceName;
+            popupContent.innerHTML = serviceContents[serviceName];
+            popup.classList.remove('hidden');
+            setTimeout(() => {
+                popup.classList.add('opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeServicePopup() {
+            const popup = document.getElementById('service-popup');
+            popup.classList.remove('opacity-100');
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close popup when clicking X or outside
+        document.getElementById('close-popup').addEventListener('click', closeServicePopup);
+        document.getElementById('service-popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeServicePopup();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
