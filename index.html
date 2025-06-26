@@ -671,19 +671,32 @@
                     <!-- Weather Widget -->
                     <div class="mt-8 bg-white rounded-lg shadow p-4 mb-8">
                         <h3 class="text-lg font-medium text-gray-900 mb-3">Wettervorhersage Rostock</h3>
-                        <div class="weatherwidget-io" 
-                             data-label_1="ROSTOCK" 
-                             data-label_2="WETTER" 
-                             data-font="Roboto" 
-                             data-icons="Climacons Animated" 
-                             data-mode="Current" 
-                             data-days="3" 
-                             data-theme="pure" 
-                             data-basecolor="#ffffff"
-                             data-textcolor="#000000"
-                             data-highcolor="#3b82f6"
-                             data-lowcolor="#3b82f6">
-                        </div>
+                        <a class="weatherwidget-io" 
+   href="https://forecast7.com/de/54d0912d10/rostock/" 
+   data-label_1="ROSTOCK" 
+   data-label_2="WETTER" 
+   data-font="Roboto" 
+   data-icons="Climacons Animated" 
+   data-mode="Current" 
+   data-days="3" 
+   data-theme="pure" 
+   data-basecolor="#ffffff" 
+   data-textcolor="#000000" 
+   data-highcolor="#3b82f6" 
+   data-lowcolor="#3b82f6">
+   Rostock Wetter
+</a>
+<script>
+    !function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0];
+        if(!d.getElementById(id)){
+            js=d.createElement(s);js.id=id;
+            js.src='https://weatherwidget.io/js/widget.min.js';
+            fjs.parentNode.insertBefore(js,fjs);
+        }
+    }(document,'script','weatherwidget-io-js');
+</script>
+
                         <div class="mt-4 text-sm text-gray-500">
                             <i class="fas fa-info-circle mr-1"></i> Aktuelle Wetterdaten helfen bei der Terminplanung
                         </div>
