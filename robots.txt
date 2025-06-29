@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pilot-hro.github.io/SkySight-hro/sitemap.xml
