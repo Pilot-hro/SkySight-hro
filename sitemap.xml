@@ -8,14 +8,4 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Falls du Unterseiten hast, füge sie hier ein -->
-  <!--
-  <url>
-    <loc>https://pilot-hro.github.io/SkySight-hro/kontakt.html</loc>
-    <lastmod>2025-06-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  -->
-
 </urlset>
