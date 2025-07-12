@@ -115,13 +115,15 @@
         }
 
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1630&q=80');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630&q=80');
             background-size: cover;
             background-position: center;
             height: 100vh;
-            position: relative;
-            transition: all 0.5s ease;
-            transform-origin: top;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
             animation: fadeIn 1s ease-out;
         }
 
@@ -133,17 +135,32 @@
         .hero-content {
             position: relative;
             z-index: 10;
-            transition: all 0.5s ease;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        body.dark {
+        background-color: #111827;
+        color: #142333;
         }
 
-        .scrolled .hero-bg {
-            height: 60vh;
-            transform: scale(0.9);
+        body.dark .bg-white {
+        background-color: #1f2937;
         }
 
-        .scrolled .hero-content {
-            transform: translateY(-20%);
+        body.dark .bg-gray-50 {
+        background-color: #111827;
         }
+
+        body.dark .text-gray-900 {
+        color: #182736;
+        }
+
+        body.dark .text-gray-600 {
+        color: #84aff0;
+        }
+                
         /* Image Hover Shimmer */
         .video-card img {
             position: relative;
@@ -198,6 +215,7 @@
             max-height: 80vh;
             overflow-y: auto;
         }
+
     </style>
 </head>
 <body class="font-sans bg-gray-50">
@@ -209,6 +227,9 @@
                     <div class="flex-shrink-0 flex items-center">
                         <img src="logo.png" alt="SkySight Rostock Logo" class="h-10 mr-2">
                         <span class="text-xl font-bold text-gray-900">SkySight Rostock</span>
+                        <button id="theme-toggle" class="ml-4 p-2 rounded-full text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                            <i class="fas fa-moon" id="theme-icon"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
@@ -237,10 +258,13 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Hero Background (fixed) -->
+    <div class="hero-bg"></div>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero-bg text-white flex items-center justify-center">
-        <div class="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Hero Content (scrolls normally) -->
+    <section id="hero" class="relative z-10 text-white flex items-center justify-center" style="height: 100vh;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-[fadeInUp_1s_ease-out]">Professionelle Drohnenvideos aus Rostock</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto animate-[fadeInUp_1s_ease-out_0.2s_forwards] opacity-0">Beeindruckende Luftaufnahmen für Ihr Projekt – innerhalb von 20km um Rostock</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
@@ -250,6 +274,8 @@
         </div>
     </section>
 
+    <!-- Main content container -->
+    <div class="content-container" style="position: relative; z-index: 1; background: white;">
     <!-- About Section -->
     <section id="about" class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -373,8 +399,7 @@
                             <span class="text-sm text-gray-500">1:13 min</span>
                             <div>
                                 <span class="text-sm font-medium text-blue-600">€40</span>
-                                <button class="ml-3 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition duration-300" onclick="selectVideo('Bentwischer Skyline', 40)">Kaufen</button>
-                            </div>
+                                <button onclick="buyPortfolioVideo('Bentwischer Skyline', 40)" class="ml-3 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition duration-300">Kaufen</button>                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,9 +418,7 @@
                             <span class="text-sm text-gray-500">1:48 min</span>
                             <div>
                                 <span class="text-sm font-medium text-blue-600">45€</span>
-                                <button class="ml-3 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition duration-300" onclick="selectVideo('Ruf der Wildnis', 45)">Kaufen</button>
-                            </div>
-                        </div>
+                                <button onclick="buyPortfolioVideo('Ruf der Wildnis', 45)" class="ml-3 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition duration-300">Kaufen</button>                        </div>
                     </div>
                 </div>
             </div>
@@ -709,6 +732,7 @@
                             </li>
                         </ul>
                     </div>
+                        
                     
                     <!-- Weather Widget -->
                     <div class="mt-8 bg-white rounded-lg shadow p-4 mb-8">
@@ -847,8 +871,7 @@
                                             <input id="privacy" name="privacy" type="checkbox" required class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="privacy" class="font-medium text-gray-700">Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#" class="text-blue-600 hover:text-blue-500">Datenschutzerklärung</a> zu *</label>
-                                        </div>
+                                        <label for="privacy" class="font-medium text-gray-700">Ich stimme der Verarbeitung meiner Daten gemäß der <a href="datenschutz.html" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-500 underline">Datenschutzerklärung</a> zu *                                        </div>
                                     </div>
                                     
                                     <div>
@@ -1013,6 +1036,7 @@
             </div>
         </div>
     </footer>
+    </div>
 
     <!-- Service Info Popups -->
     <div id="service-popup" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
@@ -1028,7 +1052,42 @@
         </div>
     </div>
 
-    <script>
+<script>
+function buyPortfolioVideo(title, price) {
+    // Scroll zum Formular
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+
+    // Felder ausblenden
+    const fieldsToHide = ['location', 'date', 'time', 'phone', 'service', 'package'];
+    fieldsToHide.forEach(name => {
+        const field = document.querySelector(`#booking-form [name="${name}"]`);
+        const label = document.querySelector(`label[for="${name}"]`);
+        const wrapper = field?.closest('div');
+
+        if (wrapper) wrapper.style.display = 'none';
+        if (label) label.style.display = 'none';
+
+        // Pflicht-Attribute entfernen
+        if (field) field.removeAttribute('required');
+    });
+
+    // Pflichtfelder reduzieren
+    ['name', 'email', 'details'].forEach(name => {
+        const field = document.querySelector(`#booking-form [name="${name}"]`);
+        if (field) field.setAttribute('required', '');
+    });
+
+    // Details vorausfüllen
+    const detailsField = document.querySelector('#booking-form [name="details"]');
+    if (detailsField) detailsField.value = `Ich möchte das Portfolio-Video "${title}" für ${price} € kaufen.`;
+
+    // Optional: Hinweis einblenden
+    const hint = document.createElement('div');
+    hint.className = 'mb-4 p-3 bg-blue-100 text-blue-800 rounded';
+    hint.innerText = `Portfolio-Video: "${title}" – ${price} €`;
+    const form = document.getElementById('booking-form');
+    form.insertBefore(hint, form.firstChild);
+}
         // Service content definitions
         const serviceContents = {
             'Immobilienvideografie': `
@@ -1165,16 +1224,6 @@
             return false;
         }
 
-        // Scroll animation for hero section
-        window.addEventListener('scroll', function() {
-            const heroSection = document.getElementById('hero');
-            if (window.scrollY > 50) {
-                heroSection.classList.add('scrolled');
-            } else {
-                heroSection.classList.remove('scrolled');
-            }
-        });
-
         // Service popup functions
         function showServicePopup(serviceName) {
             const popup = document.getElementById('service-popup');
@@ -1267,6 +1316,29 @@
                     }
                 }
             });
+        });
+        const toggle = document.getElementById('theme-toggle');
+        const icon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        // Theme aus localStorage laden
+        if (localStorage.theme === 'dark') {
+            body.classList.add('dark');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        toggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            if (body.classList.contains('dark')) {
+            localStorage.theme = 'dark';
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            } else {
+            localStorage.theme = 'light';
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            }
         });
     </script>
 </body>
