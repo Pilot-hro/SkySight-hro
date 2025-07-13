@@ -4,32 +4,154 @@
     <meta charset="UTF-8">
     <title>Datenschutzerklärung – SkySight Rostock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .highlight-box {
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 p-6 max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6">Datenschutzerklärung</h1>
-    <p><strong>Verantwortlicher:</strong><br>
-    SkySight Rostock<br>
-    vertreten durch: [Dein Name]<br>
-    Adresse: [Deine Adresse]<br>
-    E-Mail: drohnen.film.hro@gmail.com<br>
-    Telefon: +49 1522 8507019</p>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-blue-600 px-6 py-8 text-white">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-shield-alt text-2xl mr-3"></i>
+                    <h1 class="text-3xl md:text-4xl font-bold">Datenschutzerklärung</h1>
+                </div>
+                <p class="text-blue-100">Letzte Aktualisierung: Juli 2025</p>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6 md:p-8 space-y-8">
+                <!-- Responsible Party -->
+                <div class="section-card bg-gray-50 p-6 rounded-lg highlight-box">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <i class="fas fa-user-tie text-blue-500 mr-2"></i>
+                        Verantwortlicher
+                    </h2>
+                    <div class="space-y-2 text-gray-700">
+                        <p><strong>SkySight Rostock</strong></p>
+                        <p>vertreten durch: [Dein Name]</p>
+                        <p>Adresse: [Deine Adresse]</p>
+                        <div class="flex items-center mt-3">
+                            <i class="fas fa-envelope text-blue-500 mr-2"></i>
+                            <a href="mailto:drohnen.film.hro@gmail.com" class="text-blue-600 hover:underline">drohnen.film.hro@gmail.com</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-blue-500 mr-2"></i>
+                            <span>+49 1522 8507019</span>
+                        </div>
+                    </div>
+                </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">1. Erhebung personenbezogener Daten</h2>
-    <p>Wir erheben nur die Daten, die du uns über das Kontaktformular freiwillig mitteilst (Name, E-Mail, Telefon, Projektangaben).</p>
+                <!-- Section 1 -->
+                <div class="section-card bg-white border border-gray-200 p-6 rounded-lg hover:shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+                        Erhebung personenbezogener Daten
+                    </h2>
+                    <div class="text-gray-700 space-y-3">
+                        <p>Wir erheben nur die Daten, die du uns über das Kontaktformular freiwillig mitteilst (Name, E-Mail, Telefon, Projektangaben). Diese Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage benötigt.</p>
+                        <p>Bei der Nutzung unserer Website werden zudem technische Zugriffsdaten (IP-Adresse, Datum/Uhrzeit, aufgerufene Seiten) protokolliert. Diese dienen der Sicherstellung eines ordnungsgemäßen Betriebs und werden nach 7 Tagen automatisch gelöscht.</p>
+                        <p>Eine Verknüpfung dieser technischen Daten mit Ihren personenbezogenen Angaben findet nicht statt. Die Erfassung erfolgt auf Basis von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
+                    </div>
+                </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">2. Zweck der Datenverarbeitung</h2>
-    <p>Die Daten werden ausschließlich zur Bearbeitung deiner Anfrage verwendet. Eine Weitergabe an Dritte findet nicht statt.</p>
+                <!-- Section 2 -->
+                <div class="section-card bg-white border border-gray-200 p-6 rounded-lg hover:shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+                        Zweck der Datenverarbeitung
+                    </h2>
+                    <div class="text-gray-700 space-y-3">
+                        <p>Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet. Dies umfasst insbesondere:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Kontaktaufnahme zur Klärung Ihrer Anfrage</li>
+                            <li>Erstellung von Angeboten und Vertragsunterlagen</li>
+                            <li>Durchführung von Aufträgen</li>
+                            <li>Rechnungsstellung und Zahlungsabwicklung</li>
+                        </ul>
+                        <p>Eine Weitergabe an Dritte findet nicht statt, es sei denn, dies ist zur Vertragserfüllung erforderlich (z.B. an Zahlungsdienstleister) oder gesetzlich vorgeschrieben. In diesem Fall erfolgt die Weitergabe nur im gesetzlich zulässigen Umfang.</p>
+                        <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) bzw. Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+                    </div>
+                </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">3. Speicherdauer</h2>
-    <p>Deine Daten werden gelöscht, sobald die Anfrage abgeschlossen ist und keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
+                <!-- Section 3 -->
+                <div class="section-card bg-white border border-gray-200 p-6 rounded-lg hover:shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
+                        Speicherdauer
+                    </h2>
+                    <div class="text-gray-700 space-y-3">
+                        <p>Ihre personenbezogenen Daten werden gelöscht, sobald der Zweck der Speicherung entfällt oder Sie uns zur Löschung auffordern, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+                        <p>Für steuerrechtlich relevante Unterlagen (z.B. Rechnungen) beträgt die Aufbewahrungsfrist gemäß § 147 AO grundsätzlich 10 Jahre. Vertragsunterlagen werden für die Dauer der gesetzlichen Verjährungsfristen (in der Regel 3 Jahre) aufbewahrt.</p>
+                        <p>Bei nicht abgeschlossenen Anfragen (z.B. wenn kein Auftrag zustande kommt) werden Ihre Daten nach 6 Monaten gelöscht, sofern keine anderweitige Vereinbarung getroffen wurde.</p>
+                        <p>Sie haben jederzeit das Recht, die Löschung Ihrer Daten zu verlangen, soweit keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
+                    </div>
+                </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">4. Deine Rechte</h2>
-    <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung und Widerspruch gegen die Verarbeitung deiner Daten.</p>
+                <!-- Section 4 -->
+                <div class="section-card bg-white border border-gray-200 p-6 rounded-lg hover:shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">4</span>
+                        Deine Rechte
+                    </h2>
+                    <div class="text-gray-700 space-y-3">
+                        <p>Gemäß der Datenschutz-Grundverordnung (DSGVO) stehen Ihnen folgende Rechte zu:</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><strong>Auskunftsrecht</strong> (Art. 15 DSGVO) - Sie können Auskunft über die zu Ihrer Person gespeicherten Daten verlangen</li>
+                            <li><strong>Berichtigungsrecht</strong> (Art. 16 DSGVO) - Sie können die Berichtigung unrichtiger Daten verlangen</li>
+                            <li><strong>Löschungsrecht</strong> (Art. 17 DSGVO) - Sie können die Löschung Ihrer Daten verlangen ("Recht auf Vergessenwerden")</li>
+                            <li><strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO) - Sie können die Einschränkung der Verarbeitung verlangen</li>
+                            <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO) - Sie können der Verarbeitung widersprechen</li>
+                            <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO) - Sie können die Herausgabe Ihrer Daten in einem strukturierten Format verlangen</li>
+                        </ul>
+                        <p>Zudem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Für Mecklenburg-Vorpommern ist dies der Landesbeauftragte für Datenschutz und Informationsfreiheit.</p>
+                        <p>Zur Ausübung Ihrer Rechte können Sie sich jederzeit an uns wenden (Kontaktdaten siehe oben).</p>
+                    </div>
+                </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">5. Kontakt</h2>
-    <p>Bei Fragen zum Datenschutz erreichst du uns unter: <a href="mailto:drohnen.film.hro@gmail.com" class="text-blue-600 underline">drohnen.film.hro@gmail.com</a></p>
+                <!-- Section 5 -->
+                <div class="section-card bg-blue-50 p-6 rounded-lg border border-blue-100">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <i class="fas fa-question-circle text-blue-500 mr-2"></i>
+                        Kontakt & Datenschutzbeauftragter
+                    </h2>
+                    <div class="text-gray-700 space-y-3 mb-4">
+                        <p>Bei Fragen zum Datenschutz oder zur Ausübung Ihrer Rechte können Sie sich jederzeit an uns wenden:</p>
+                        <p>Unser Datenschutzbeauftragter steht Ihnen für alle Fragen zum Schutz Ihrer personenbezogenen Daten zur Verfügung. Sie erreichen ihn unter den oben genannten Kontaktdaten mit dem Zusatz "Datenschutz".</p>
+                        <p>Für besonders sensible Anfragen empfehlen wir eine verschlüsselte Kommunikation. Unser PGP-Schlüssel kann auf Anfrage zur Verfügung gestellt werden.</p>
+                        <p>Wir verpflichten uns, alle Anfragen unverzüglich und spätestens innerhalb eines Monats nach Eingang zu bearbeiten. Bei komplexeren Anfragen kann sich diese Frist gegebenenfalls um bis zu zwei Monate verlängern, worüber wir Sie jedoch informieren werden.</p>
+                    </div>
+                    <a href="mailto:drohnen.film.hro@gmail.com" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-envelope mr-2"></i>
+                        drohnen.film.hro@gmail.com
+                    </a>
+                </div>
 
-    <p class="mt-8 text-sm text-gray-600">Stand: Juli 2025</p>
+                <!-- Footer -->
+                <div class="text-center text-sm text-gray-500 mt-8 pt-6 border-t border-gray-200">
+                    <p>© 2025 SkySight Rostock. Alle Rechte vorbehalten.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
