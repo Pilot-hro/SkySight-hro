@@ -1585,6 +1585,31 @@ function buyPortfolioVideo(title, price) {
             });
         });
 
+        const API_URL = 'https://api.jsonbin.io/v3/b/6873d9d65fdad557dbe10412';
+        const API_KEY = '$2a$10$J1U8yradX0EjD0wuhYYi4uLqRpGTMCKtzM8dUDrqdJ3gsswZCdmza';
+
+        // Termine laden
+        async function getAppointments() {
+            const res = await fetch(API_URL, {
+                headers: { 'X-Master-Key': API_KEY }
+            });
+            const data = await res.json();
+            return data.record.appointments;
+        }
+
+        // Termine speichern
+        async function saveAppointments(appointments) {
+            await fetch(API_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': API_KEY
+                },
+                body: JSON.stringify({ appointments })
+            });
+        }
+
+
         // Portfolio video selection
         let selectedVideo = null;
         
