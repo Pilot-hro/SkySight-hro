@@ -178,6 +178,28 @@
         body.dark .bg-blue-50 {
             background-color: #1e3a8a;
         }
+
+        /* Dark Mode Calendar Styles */
+        body.dark .bg-white {
+            background-color: #1f2937 !important;
+            border-color: #374151 !important;
+        }
+        
+        body.dark .bg-gray-100 {
+            background-color: #111827 !important;
+        }
+        
+        body.dark .border-gray-200 {
+            border-color: #374151 !important;
+        }
+        
+        body.dark .text-gray-900 {
+            color: #f3f4f6 !important;
+        }
+        
+        body.dark .text-blue-600 {
+            color: #93c5fd !important;
+        }
                 
         /* Image Hover Shimmer */
         .video-card img {
@@ -1332,8 +1354,11 @@
                 
                 let appointmentHtml = "";
                 appointments.forEach(app => {
-                    appointmentHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded truncate">
-                        ${app.time} - ${app.name}
+                    appointmentHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded truncate flex justify-between items-center">
+                        <span>${app.time} - ${app.name}</span>
+                        <button onclick="deleteAppointment('${app.date}', ${appointments.indexOf(app)})" class="text-red-500 hover:text-red-700 ml-2">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </div>`;
                 });
                 
@@ -1382,6 +1407,20 @@
                 const appDate = new Date(app.date);
                 return appDate.toDateString() === date.toDateString();
             });
+        }
+
+        function deleteAppointment(date, index) {
+            if (!confirm('Möchten Sie diesen Termin wirklich löschen?')) return;
+            
+            const appointments = getAppointments();
+            const filtered = appointments.filter((app, i) => {
+                const appDate = new Date(app.date);
+                return !(appDate.toDateString() === new Date(date).toDateString() && i === index);
+            });
+            
+            localStorage.setItem('appointments', JSON.stringify(filtered));
+            generateCalendar(new Date(currentYear, currentMonth, 1));
+            alert('Termin erfolgreich gelöscht!');
         }
         
         // Form submission
