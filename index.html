@@ -1441,7 +1441,7 @@
             this.reset();
             alert('Termin gespeichert!');
         });
-        
+                
         // Initialize public calendar
         initPublicCalendar();
         
@@ -1589,11 +1589,11 @@ function buyPortfolioVideo(title, price) {
         const API_URL = 'https://api.jsonbin.io/v3/b/6873d9d65fdad557dbe10412';
         const API_KEY = '$2a$10$J1U8yradX0EjD0wuhYYi4uLqRpGTMCKtzM8dUDrqdJ3gsswZCdmza';
 
-        // Termine laden
+        // ✅ Neue API-basierte Funktionen
         async function getAppointments() {
             try {
-                const res = await fetch(API_URL + '/latest', {
-                    headers: { 'X-Master-Key': API_KEY }
+                const res = await fetch('https://api.jsonbin.io/v3/b/6873d9d65fdad557dbe10412/latest', {
+                    headers: { 'X-Master-Key': '$2a$10$J1U8yradX0EjD0wuhYYi4uLqRpGTMCKtzM8dUDrqdJ3gsswZCdmza' }
                 });
                 const data = await res.json();
                 return data.record?.appointments || [];
@@ -1603,14 +1603,13 @@ function buyPortfolioVideo(title, price) {
             }
         }
 
-        // Termine speichern
         async function saveAppointments(appointments) {
             try {
-                await fetch(API_URL, {
+                await fetch('https://api.jsonbin.io/v3/b/6873d9d65fdad557dbe10412', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Master-Key': API_KEY
+                        'X-Master-Key': '$2a$10$J1U8yradX0EjD0wuhYYi4uLqRpGTMCKtzM8dUDrqdJ3gsswZCdmza'
                     },
                     body: JSON.stringify({ appointments })
                 });
