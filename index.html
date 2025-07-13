@@ -141,24 +141,42 @@
             justify-content: center;
         }
         body.dark {
-        background-color: #111827;
-        color: #142333;
+            background-color: #111827;
+            color: #e5e7eb;
         }
 
         body.dark .bg-white {
-        background-color: #1f2937;
+            background-color: #1f2937;
         }
 
         body.dark .bg-gray-50 {
-        background-color: #111827;
+            background-color: #111827;
         }
 
-        body.dark .text-gray-900 {
-        color: #182736;
-        }
-
+        body.dark .text-gray-900,
+        body.dark .text-gray-700,
         body.dark .text-gray-600 {
-        color: #84aff0;
+            color: #e5e7eb;
+        }
+
+        body.dark .text-blue-600 {
+            color: #93c5fd;
+        }
+
+        body.dark .text-gray-500 {
+            color: #9ca3af;
+        }
+
+        body.dark .text-gray-400 {
+            color: #9ca3af;
+        }
+
+        body.dark .border-gray-300 {
+            border-color: #374151;
+        }
+
+        body.dark .bg-blue-50 {
+            background-color: #1e3a8a;
         }
                 
         /* Image Hover Shimmer */
@@ -169,6 +187,21 @@
         
         .video-card:hover img {
             transform: scale(1.03);
+        }
+
+        body.dark .video-card,
+        body.dark .service-card,
+        body.dark .bg-gray-50 {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+
+        body.dark #booking-form input,
+        body.dark #booking-form textarea,
+        body.dark #booking-form select {
+            background-color: #1f2937;
+            border-color: #374151;
+            color: #e5e7eb;
         }
         
         .video-card img:after {
