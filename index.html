@@ -1265,13 +1265,13 @@
             return false;
         }
         
-        function showAdminCalendar() {
+        async function showAdminCalendar() {
             const calendar = document.getElementById('admin-calendar');
             calendar.classList.remove('hidden');
-            setTimeout(() => {
-                calendar.classList.add('opacity-100');
-            }, 10);
-            generateCalendar(new Date());
+            setTimeout(() => calendar.classList.add('opacity-100'), 10);
+
+            const appointments = await getAppointments();
+            generateCalendar(new Date()); // Kalender wird trotzdem gerendert
         }
         
         function closeAdminCalendar() {
@@ -1424,21 +1424,22 @@
         }
         
         // Form submission
-        document.getElementById('add-appointment-form').addEventListener('submit', function(e) {
+        document.getElementById('add-appointment-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const appointment = {
+
+            const appointments = await getAppointments();
+            appointments.push({
                 date: document.getElementById('appointment-date').value,
                 time: document.getElementById('appointment-time').value,
                 name: document.getElementById('appointment-name').value,
                 service: document.getElementById('appointment-service').value,
                 notes: document.getElementById('appointment-notes').value
-            };
-            
-            saveAppointment(appointment);
-            generateCalendar(new Date(currentYear, currentMonth, 1));
+            });
+
+            await saveAppointments(appointments);
+            generateCalendar(new Date());
             this.reset();
-            alert('Termin erfolgreich gespeichert!');
+            alert('Termin gespeichert!');
         });
         
         // Initialize public calendar
@@ -1590,25 +1591,33 @@ function buyPortfolioVideo(title, price) {
 
         // Termine laden
         async function getAppointments() {
-            const res = await fetch(API_URL, {
-                headers: { 'X-Master-Key': API_KEY }
-            });
-            const data = await res.json();
-            return data.record.appointments;
+            try {
+                const res = await fetch(API_URL + '/latest', {
+                    headers: { 'X-Master-Key': API_KEY }
+                });
+                const data = await res.json();
+                return data.record?.appointments || [];
+            } catch (error) {
+                console.error('Fehler beim Laden der Termine:', error);
+                return [];
+            }
         }
 
         // Termine speichern
         async function saveAppointments(appointments) {
-            await fetch(API_URL, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': API_KEY
-                },
-                body: JSON.stringify({ appointments })
-            });
+            try {
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify({ appointments })
+                });
+            } catch (error) {
+                console.error('Fehler beim Speichern der Termine:', error);
+            }
         }
-
 
         // Portfolio video selection
         let selectedVideo = null;
