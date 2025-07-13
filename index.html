@@ -293,8 +293,7 @@
                     <a href="#portfolio" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Portfolio</a>
                     <a href="#pricing" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Videopakete</a>
                     <a href="#booking" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition duration-300">Anfrage senden</a>
-                    <button onclick="showAdminLogin()" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Admin</button>
-                </div>
+                    <button onclick="addAppointment()" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700">Termin hinzufügen</button>                </div>
                 <div class="-mr-2 flex items-center md:hidden">
                     <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
                         <span class="sr-only">Hauptmenü öffnen</span>
@@ -1199,6 +1198,7 @@
                     <div>
                         <label for="appointment-service" class="block text-sm font-medium text-gray-700">Service</label>
                         <select id="appointment-service" class="block w-full px-4 py-2 border border-gray-300 rounded-md">
+                            <option value="Immobilien">Werbung</option>
                             <option value="Immobilien">Immobilien</option>
                             <option value="Hochzeit">Hochzeit</option>
                             <option value="Event">Event</option>
@@ -1232,8 +1232,6 @@
     </div>
 
     <script>
-        // Admin functions
-        const ADMIN_PASSWORD = "skysight090909"; // Ändern Sie dies zu einem sicheren Passwort
         
         function showAdminLogin() {
             const modal = document.getElementById('admin-login-modal');
@@ -1370,7 +1368,67 @@
             
             document.getElementById('calendar-days').innerHTML = days;
         }
-        
+        <!-- Firebase SDK -->
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "DEIN_API_KEY",
+            authDomain: "DEIN_PROJECT.firebaseapp.com",
+            projectId: "DEIN_PROJECT",
+            storageBucket: "DEIN_PROJECT.appspot.com",
+            messagingSenderId: "SENDER_ID",
+            appId: "APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const appointmentsRef = collection(db, "appointments");
+
+        // Live Termine laden
+        onSnapshot(appointmentsRef, (snapshot) => {
+            const appointments = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderCalendar(appointments);
+        });
+
+        // Termin hinzufügen
+        window.addAppointment = async () => {
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const name = document.getElementById('appointment-name').value;
+            if (!date || !time || !name) return alert("Bitte alle Felder ausfüllen");
+
+            await addDoc(appointmentsRef, { date, time, name });
+            alert("Termin gespeichert!");
+        };
+
+        // Kalender rendern
+        function renderCalendar(appointments) {
+            const days = document.getElementById('calendar-days');
+            days.innerHTML = '';
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+            for (let i = 0; i < (firstDay.getDay() + 6) % 7; i++) {
+            days.innerHTML += `<div class="h-24 border"></div>`;
+            }
+
+            for (let i = 1; i <= lastDay.getDate(); i++) {
+            const date = new Date(today.getFullYear(), today.getMonth(), i);
+            const dayApps = appointments.filter(a => a.date === date.toISOString().split('T')[0]);
+
+            let appHtml = "";
+            dayApps.forEach(app => {
+                appHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded">${app.time} - ${app.name}</div>`;
+            });
+
+            days.innerHTML += `<div class="h-24 border p-1">${i}${appHtml}</div>`;
+            }
+        }
+
         function prevMonth() {
             currentMonth--;
             if (currentMonth < 0) {
@@ -1389,39 +1447,6 @@
             generateCalendar(new Date(currentYear, currentMonth, 1));
         }
         
-        // Appointment storage
-        function getAppointments() {
-            const appointments = localStorage.getItem('appointments');
-            return appointments ? JSON.parse(appointments) : [];
-        }
-        
-        function saveAppointment(appointment) {
-            const appointments = getAppointments();
-            appointments.push(appointment);
-            localStorage.setItem('appointments', JSON.stringify(appointments));
-        }
-        
-        function getAppointmentsForDate(date) {
-            const appointments = getAppointments();
-            return appointments.filter(app => {
-                const appDate = new Date(app.date);
-                return appDate.toDateString() === date.toDateString();
-            });
-        }
-
-        function deleteAppointment(date, index) {
-            if (!confirm('Möchten Sie diesen Termin wirklich löschen?')) return;
-            
-            const appointments = getAppointments();
-            const filtered = appointments.filter((app, i) => {
-                const appDate = new Date(app.date);
-                return !(appDate.toDateString() === new Date(date).toDateString() && i === index);
-            });
-            
-            localStorage.setItem('appointments', JSON.stringify(filtered));
-            generateCalendar(new Date(currentYear, currentMonth, 1));
-            alert('Termin erfolgreich gelöscht!');
-        }
         
         // Form submission
         document.getElementById('add-appointment-form').addEventListener('submit', async function(e) {
@@ -1441,9 +1466,7 @@
             this.reset();
             alert('Termin gespeichert!');
         });
-                
-        // Initialize public calendar
-        initPublicCalendar();
+            
         
         // Check if already logged in
         if (localStorage.getItem('adminLoggedIn') === 'true') {
