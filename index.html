@@ -1085,42 +1085,7 @@
         </div>
     </div>
 
-<script>
-function buyPortfolioVideo(title, price) {
-    // Scroll zum Formular
-    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-
-    // Felder ausblenden
-    const fieldsToHide = ['location', 'date', 'time', 'phone', 'service', 'package'];
-    fieldsToHide.forEach(name => {
-        const field = document.querySelector(`#booking-form [name="${name}"]`);
-        const label = document.querySelector(`label[for="${name}"]`);
-        const wrapper = field?.closest('div');
-
-        if (wrapper) wrapper.style.display = 'none';
-        if (label) label.style.display = 'none';
-
-        // Pflicht-Attribute entfernen
-        if (field) field.removeAttribute('required');
-    });
-
-    // Pflichtfelder reduzieren
-    ['name', 'email', 'details'].forEach(name => {
-        const field = document.querySelector(`#booking-form [name="${name}"]`);
-        if (field) field.setAttribute('required', '');
-    });
-
-    // Details vorausfüllen
-    const detailsField = document.querySelector('#booking-form [name="details"]');
-    if (detailsField) detailsField.value = `Ich möchte das Portfolio-Video "${title}" für ${price} € kaufen.`;
-
-    // Optional: Hinweis einblenden
-    const hint = document.createElement('div');
-    hint.className = 'mb-4 p-3 bg-blue-100 text-blue-800 rounded';
-    hint.innerText = `Portfolio-Video: "${title}" – ${price} €`;
-    const form = document.getElementById('booking-form');
-    form.insertBefore(hint, form.firstChild);
-}
+    <script>
         // Service content definitions
         const serviceContents = {
             'Immobilienvideografie': `
@@ -1159,6 +1124,76 @@ function buyPortfolioVideo(title, price) {
                 <p>Perfekt für Eventmanager, Marketingabteilungen und Veranstalter, die ihren Gästen etwas Besonderes bieten möchten.</p>
             `
         };
+
+        // Service popup functions
+        function showServicePopup(serviceName) {
+            const popup = document.getElementById('service-popup');
+            const popupTitle = document.getElementById('popup-title');
+            const popupContent = document.getElementById('popup-content');
+            
+            popupTitle.textContent = serviceName;
+            popupContent.innerHTML = serviceContents[serviceName];
+            popup.classList.remove('hidden');
+            setTimeout(() => {
+                popup.classList.add('opacity-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeServicePopup() {
+            const popup = document.getElementById('service-popup');
+            popup.classList.remove('opacity-100');
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close popup when clicking X or outside
+        document.getElementById('close-popup').addEventListener('click', closeServicePopup);
+        document.getElementById('service-popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeServicePopup();
+            }
+        });
+    </script>
+
+<script>
+function buyPortfolioVideo(title, price) {
+    // Scroll zum Formular
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+
+    // Felder ausblenden
+    const fieldsToHide = ['location', 'date', 'time', 'phone', 'service', 'package'];
+    fieldsToHide.forEach(name => {
+        const field = document.querySelector(`#booking-form [name="${name}"]`);
+        const label = document.querySelector(`label[for="${name}"]`);
+        const wrapper = field?.closest('div');
+
+        if (wrapper) wrapper.style.display = 'none';
+        if (label) label.style.display = 'none';
+
+        // Pflicht-Attribute entfernen
+        if (field) field.removeAttribute('required');
+    });
+
+    // Pflichtfelder reduzieren
+    ['name', 'email', 'details'].forEach(name => {
+        const field = document.querySelector(`#booking-form [name="${name}"]`);
+        if (field) field.setAttribute('required', '');
+    });
+
+    // Details vorausfüllen
+    const detailsField = document.querySelector('#booking-form [name="details"]');
+    if (detailsField) detailsField.value = `Ich möchte das Portfolio-Video "${title}" für ${price} € kaufen.`;
+
+    // Optional: Hinweis einblenden
+    const hint = document.createElement('div');
+    hint.className = 'mb-4 p-3 bg-blue-100 text-blue-800 rounded';
+    hint.innerText = `Portfolio-Video: "${title}" – ${price} €`;
+    const form = document.getElementById('booking-form');
+    form.insertBefore(hint, form.firstChild);
+}
 
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
