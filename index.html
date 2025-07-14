@@ -1335,10 +1335,10 @@
             // Add cells for each day of month
             for (let i = 1; i <= lastDay.getDate(); i++) {
                 const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-                const appointments = await getAppointmentsForDate(currentDate);
+                const appointments = getAppointmentsForDate(currentDate);
                 
                 let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden";
-                if (appointments && appointments.length > 0) {
+                if (appointments.length > 0) {
                     dayClass += " bg-blue-50";
                 }
                 
@@ -1372,11 +1372,10 @@
             // Add cells for each day of month
             for (let i = 1; i <= lastDay.getDate(); i++) {
                 const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-                const appointments = await getAppointmentsForDate(currentDate);
+                const appointments = getAppointmentsForDate(currentDate);
                 
                 let appointmentHtml = "";
-                if (appointments && appointments.length > 0) {
-                    appointments.forEach(app => {
+                appointments.forEach(app => {
                     appointmentHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded truncate flex justify-between items-center">
                         <span>${app.time} - ${app.name}</span>
                         <button onclick="deleteAppointment('${app.date}', ${appointments.indexOf(app)})" class="text-red-500 hover:text-red-700 ml-2">
@@ -1423,25 +1422,11 @@
         }
         
         async function getAppointmentsForDate(date) {
-            try {
-                const dateStr = date.toISOString().split('T')[0];
-                const snapshot = await db.collection('appointments')
-                    .where('date', '==', dateStr)
-                    .get();
-                
-                if (snapshot.empty) {
-                    return [];
-                }
-                
-                const appointments = [];
-                snapshot.forEach(doc => {
-                    appointments.push({ id: doc.id, ...doc.data() });
-                });
-                return appointments;
-            } catch (error) {
-                console.error("Error getting appointments:", error);
-                return [];
-            }
+            const dateStr = date.toISOString().split('T')[0];
+            const snapshot = await db.collection('appointments')
+                .where('date', '==', dateStr)
+                .get();
+            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         }
 
         async function deleteAppointment(appointmentId) {
