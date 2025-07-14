@@ -1287,13 +1287,13 @@
             return false;
         }
         
-        function showAdminCalendar() {
+        async function showAdminCalendar() {
             const calendar = document.getElementById('admin-calendar');
             calendar.classList.remove('hidden');
             setTimeout(() => {
                 calendar.classList.add('opacity-100');
             }, 10);
-            generateCalendar(new Date());
+            await generateCalendar(new Date());
         }
         
         function closeAdminCalendar() {
@@ -1314,7 +1314,7 @@
             generatePublicCalendar(new Date());
         }
 
-        function generatePublicCalendar(date) {
+        async function generatePublicCalendar(date) {
             const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
                                "Juli", "August", "September", "Oktober", "November", "Dezember"];
             
@@ -1335,7 +1335,7 @@
             // Add cells for each day of month
             for (let i = 1; i <= lastDay.getDate(); i++) {
                 const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-                const appointments = getAppointmentsForDate(currentDate);
+                const appointments = await getAppointmentsForDate(currentDate);
                 
                 let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden";
                 if (appointments.length > 0) {
@@ -1351,7 +1351,7 @@
             document.getElementById('public-calendar-days').innerHTML = days;
         }
         
-        function generateCalendar(date) {
+        async function generateCalendar(date) {
             const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
                                "Juli", "August", "September", "Oktober", "November", "Dezember"];
             
@@ -1372,7 +1372,7 @@
             // Add cells for each day of month
             for (let i = 1; i <= lastDay.getDate(); i++) {
                 const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-                const appointments = getAppointmentsForDate(currentDate);
+                const appointments = await getAppointmentsForDate(currentDate);
                 
                 let appointmentHtml = "";
                 appointments.forEach(app => {
@@ -1464,9 +1464,9 @@
         initPublicCalendar();
         
         // Check auth state
-        auth.onAuthStateChanged(user => {
+        auth.onAuthStateChanged(async user => {
             if (user) {
-                showAdminCalendar();
+                await showAdminCalendar();
             }
         });
         
