@@ -1266,6 +1266,8 @@
             
             try {
                 await auth.signInWithEmailAndPassword(email, password);
+                // Store login state in localStorage
+                localStorage.setItem('adminLoggedIn', 'true');
                 closeAdminLogin();
                 showAdminCalendar();
             } catch (error) {
@@ -1289,6 +1291,8 @@
             setTimeout(() => {
                 calendar.classList.add('hidden');
             }, 300);
+            // Optional: Sign out when closing calendar
+            auth.signOut();
             localStorage.removeItem('adminLoggedIn');
         }
         
@@ -1468,11 +1472,9 @@
         // Initialize public calendar
         initPublicCalendar();
         
-        // Check auth state
-        auth.onAuthStateChanged(async user => {
-            if (user) {
-                await showAdminCalendar();
-            }
+        // Check auth state - only for maintaining login state
+        auth.onAuthStateChanged(user => {
+            // We don't automatically show admin calendar here
         });
         
         // Service content definitions
