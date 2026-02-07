@@ -1,577 +1,886 @@
-<!doctypehtml><html lang="de"><meta charset="UTF-8"><meta content="width=device-width,initial-scale=1"name="viewport"><meta content="SkySight HRO bietet professionelle Drohnenaufnahmen, Luftbilder und Videos aus Rostock und Umgebung. Jetzt anfragen!"name="description"><meta content="Drohne, Drohnenvideos, Aufnahmen,Luft, Video, Luftaufnahmen, Rostock, SkySight, Drohnenservice"name="keywords"><meta content="SkySight HRO"name="author"><meta content="index, follow"name="robots"><title>SkySight HRO – Drohnenvideos aus Rostock</title><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="icon"type="image/png"><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="shortcut icon"type="image/x-icon"><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="icon"type="image/png"><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="icon"type="image/png"sizes="192x192"><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="icon"type="image/png"sizes="32x32"><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="icon"type="image/png"sizes="96x96"><link href="https://pilot-hro.github.io/SkySight-hro/icon.png"rel="icon"type="image/png"sizes="16x16"><meta content="https://pilot-hro.github.io/SkySight-hro/icon.png"property="og:image"><meta content="image/png"property="og:image:type"><meta content="512"property="og:image:width"><meta content="512"property="og:image:height"><script src="https://cdn.tailwindcss.com"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"rel="stylesheet"><link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"rel="stylesheet"><script src="https://weatherwidget.io/js/widget.min.js"></script><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script><style>.section-hidden{opacity:0;transform:translateY(20px);transition:all 1s ease}.section-show{opacity:1;transform:translateY(0)}@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}.wave-btn{position:relative;overflow:hidden}.wave-btn:after{content:"";position:absolute;top:50%;left:50%;width:5px;height:5px;background:rgba(255,255,255,.5);opacity:0;border-radius:100%;transform:scale(1,1) translate(-50%);transform-origin:50% 50%}.wave-btn:hover:after{animation:wave 1s ease-out}@keyframes wave{0%{transform:scale(0,0);opacity:.5}100%{transform:scale(20,20);opacity:0}}.float-btn{animation:floatBtn 3s ease-in-out infinite}@keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}.hero-bg{background-image:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630&q=80);background-size:cover;background-position:center;height:100vh;position:fixed;width:100%;top:0;left:0;z-index:0;animation:fadeIn 1s ease-out}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.hero-content{position:relative;z-index:10;height:100vh;display:flex;flex-direction:column;justify-content:center}body.dark{background-color:#111827;color:#e5e7eb}body.dark .bg-white{background-color:#1f2937}body.dark .bg-gray-50{background-color:#111827}body.dark .text-gray-600,body.dark .text-gray-700,body.dark .text-gray-900{color:#e5e7eb}body.dark .text-blue-600{color:#93c5fd}body.dark .text-gray-500{color:#9ca3af}body.dark .text-gray-400{color:#9ca3af}body.dark .border-gray-300{border-color:#374151}body.dark .bg-blue-50{background-color:#1e3a8a}body.dark .bg-white{background-color:#1f2937!important;border-color:#374151!important}body.dark .bg-gray-100{background-color:#111827!important}body.dark .border-gray-200{border-color:#374151!important}body.dark .text-gray-900{color:#f3f4f6!important}body.dark .text-blue-600{color:#93c5fd!important}.video-card img{position:relative;transition:all .3s ease}.video-card:hover img{transform:scale(1.03)}body.dark .bg-gray-50,body.dark .service-card,body.dark .video-card{background-color:#1f2937;border-color:#374151}body.dark #booking-form input,body.dark #booking-form select,body.dark #booking-form textarea{background-color:#1f2937;border-color:#374151;color:#e5e7eb}.video-card img:after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:all .3s ease}.video-card:hover img:after{left:100%}.video-card:hover .play-icon{transform:scale(1.2);opacity:.9}.service-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.1)}#booking-form input,#booking-form select,#booking-form textarea{transition:all .3s ease}#booking-form input:focus,#booking-form select:focus,#booking-form textarea:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.2)}.map-container{height:400px;border-radius:.5rem;overflow:hidden}#service-popup{transition:opacity .3s ease}#service-popup>div:last-child{max-height:80vh;overflow-y:auto}</style><body class="bg-gray-50 font-sans"><nav class="bg-white z-50 shadow-lg sticky top-0"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="flex justify-between h-16"><div class="flex items-center"><div class="flex items-center flex-shrink-0"><img alt="SkySight Rostock Logo"class="h-10 mr-2"src="logo.png"> <span class="text-gray-900 font-bold text-xl">SkySight Rostock</span> <button class="rounded-full dark:hover:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 ml-4 p-2 text-gray-700"id="theme-toggle"><i class="fas fa-moon"id="theme-icon"></i></button></div></div><div class="hidden md:flex md:items-center md:ml-6 md:space-x-8"><a class="font-medium text-sm py-2 hover:text-blue-600 px-3 text-gray-900"href="#about">Über mich</a> <a class="font-medium text-sm py-2 hover:text-blue-600 px-3 text-gray-900"href="#services">Leistungen</a> <a class="font-medium text-sm py-2 hover:text-blue-600 px-3 text-gray-900"href="#portfolio">Portfolio</a> <a class="font-medium text-sm py-2 hover:text-blue-600 px-3 text-gray-900"href="#pricing">Videopakete</a> <a class="font-medium text-sm py-2 bg-blue-600 duration-300 hover:bg-blue-700 px-4 rounded-md text-white transition"href="#booking">Anfrage senden</a> <button class="font-medium text-sm py-2 hover:text-blue-600 px-3 text-gray-900"onclick="showAdminLogin()">Termine</button></div><div class="flex items-center -mr-2 md:hidden"><button class="text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset hover:bg-gray-100 hover:text-gray-500 inline-flex items-center justify-center p-2 rounded-md"type="button"id="mobile-menu-button"><span class="sr-only">Hauptmenü öffnen</span> <i class="fas fa-bars"></i></button></div></div></div><div class="hidden md:hidden"id="mobile-menu"><div class="px-2 pb-3 pt-2 sm:px-3 space-y-1"><a class="font-medium text-gray-900 hover:text-blue-600 px-3 py-2 block rounded-md text-base"href="#about">Über uns</a> <a class="font-medium text-gray-900 hover:text-blue-600 px-3 py-2 block rounded-md text-base"href="#services">Leistungen</a> <a class="font-medium text-gray-900 hover:text-blue-600 px-3 py-2 block rounded-md text-base"href="#portfolio">Portfolio</a> <a class="font-medium text-gray-900 hover:text-blue-600 px-3 py-2 block rounded-md text-base"href="#pricing">Videopakete</a> <a class="font-medium block px-3 py-2 rounded-md text-base bg-blue-600 duration-300 hover:bg-blue-700 text-white transition"href="#booking">Anfrage senden</a></div></div></nav><div class="hero-bg"></div><section class="flex items-center justify-center relative text-white z-10"id="hero"style="height:100vh"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6 text-center"><h1 class="font-bold mb-6 animate-[fadeInUp_1s_ease-out] md:text-6xl text-4xl">Professionelle Drohnenvideos aus Rostock</h1><p class="mx-auto max-w-3xl animate-[fadeInUp_1s_ease-out_0.2s_forwards] mb-8 md:text-2xl opacity-0 text-xl">Beeindruckende Luftaufnahmen für Ihr Projekt – innerhalb von 20km um Rostock<div class="flex justify-center flex-col gap-4 sm:flex-row"><a class="font-bold duration-300 px-6 py-3 rounded-lg transition wave-btn bg-blue-600 float-btn hover:bg-blue-700 text-white"href="#booking">Jetzt anfragen</a> <a class="font-bold duration-300 px-6 py-3 rounded-lg transition wave-btn bg-white hover:bg-gray-100 text-blue-600"href="#portfolio">Portfolio ansehen</a></div></div></section><div class="content-container"style="position:relative;z-index:1;background:#fff"><section class="py-16 bg-gray-50"id="about"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Über mich</h2><div class="mx-auto max-w-3xl"><div class="flex items-center flex-col md:flex-row gap-8"><div class="md:w-1/3"><div class="flex items-center justify-center bg-gray-200 h-48 mx-auto overflow-hidden rounded-full shadow-lg w-48"><i class="fas text-blue-600 fa-user text-6xl"></i></div></div><div class="md:w-2/3 text-left"><p class="text-gray-600 text-lg mb-4">Ich bin 16 Jahre alt und fliege seit über einem Jahr leidenschaftlich Drohnen. Was als Hobby begann, hat sich zu einer professionellen Dienstleistung entwickelt, mit der ich beeindruckende Luftaufnahmen für Kunden in Rostock und Umgebung erstelle.<p class="text-gray-600 text-lg">Dank meiner jahrelangen Erfahrung ermöglicht es mir einzigartige Perspektiven für Ihre Videoprojekte zu finden. Ich lege großen Wert auf Qualität und Professionalität in jeder Aufnahme.</div></div></div></div></div></section><section class="bg-white py-16"id="services"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Unsere Leistungen</h2><p class="text-gray-600 text-lg max-w-3xl mx-auto">Professionelle Drohnenaufnahmen für verschiedene Anlässe und Projekte in Rostock und Umgebung</div><div class="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2"><div class="bg-white rounded-lg overflow-hidden shadow-md duration-300 hover:scale-[1.02] hover:shadow-lg transition animate-[fadeInUp_0.5s_ease-out] service-card"><div class="flex items-center justify-center bg-gray-200 h-48"><i class="fas text-blue-600 text-5xl fa-home"></i></div><div class="p-6"><h3 class="text-gray-900 font-bold text-xl mb-3">Immobilienvideografie</h3><p class="text-gray-600 mb-4">Präsentieren Sie Immobilien aus der Vogelperspektive mit professionellen Drohnenaufnahmen, die den Wert Ihrer Objekte unterstreichen.</p><button class="font-medium text-blue-600 cursor-pointer flex hover:text-blue-800 items-center"onclick='showServicePopup("Immobilienvideografie")'><span>Mehr erfahren</span> <i class="fas ml-2 fa-arrow-right"></i></button></div></div><div class="bg-white rounded-lg overflow-hidden shadow-md duration-300 hover:scale-[1.02] hover:shadow-lg transition animate-[fadeInUp_0.5s_ease-out] service-card"><div class="flex items-center justify-center bg-gray-200 h-48"><i class="fas text-blue-600 text-5xl fa-ring"></i></div><div class="p-6"><h3 class="text-gray-900 font-bold text-xl mb-3">Hochzeitsfilme</h3><p class="text-gray-600 mb-4">Einzigartige Luftaufnahmen Ihrer Hochzeitslocation und des Brautpaares für einen unvergesslichen Film Ihres besonderen Tages.</p><button class="font-medium text-blue-600 cursor-pointer flex hover:text-blue-800 items-center"onclick='showServicePopup("Hochzeitsfilme")'><span>Mehr erfahren</span> <i class="fas ml-2 fa-arrow-right"></i></button></div></div><div class="bg-white rounded-lg overflow-hidden shadow-md duration-300 hover:scale-[1.02] hover:shadow-lg transition animate-[fadeInUp_0.5s_ease-out] service-card"><div class="flex items-center justify-center bg-gray-200 h-48"><i class="fas text-blue-600 text-5xl fa-flag"></i></div><div class="p-6"><h3 class="text-gray-900 font-bold text-xl mb-3">Eventdokumentation</h3><p class="text-gray-600 mb-4">Ob Konzert, Sportevent oder Firmenfeier - unsere Drohnenaufnahmen zeigen Ihre Veranstaltung aus einer neuen Perspektive.</p><button class="font-medium text-blue-600 cursor-pointer flex hover:text-blue-800 items-center"onclick='showServicePopup("Eventdokumentation")'><span>Mehr erfahren</span> <i class="fas ml-2 fa-arrow-right"></i></button></div></div></div></div></section><section class="bg-white py-16"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Promo Video</h2><p class="text-gray-600 text-lg max-w-3xl mx-auto">Ein Beispiel unserer Drohnenaufnahmen</div><div class="mx-auto aspect-h-9 aspect-w-16 max-w-4xl"><video class="w-full rounded-lg shadow-lg"controls poster="poster.webp"><source loading="lazy"src="promo.mp4"type="video/mp4">Ihr Browser unterstützt das Video-Tag nicht.</video></div></div></section><section class="py-16 bg-gray-50"id="portfolio"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Unser Portfolio</h2><p class="text-gray-600 text-lg max-w-3xl mx-auto">Beispiele unserer Drohnenaufnahmen aus Rostock und Umgebung</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:grid-cols-2"><div class="bg-white rounded-lg overflow-hidden shadow-md duration-300 hover:scale-[1.02] hover:shadow-lg transition group relative video-card"><div class="flex items-center justify-center relative bg-gray-800 h-64"><img alt="Skyline von Bentwisch"class="w-full h-full object-cover"src="skyline.webp"loading="lazy"><div class="flex items-center justify-center absolute inset-0"></div></div><div class="p-4"><h3 class="text-gray-900 font-bold text-lg">Bentwischer Skyline</h3><p class="text-gray-600">Panoramablick über Bentwisch bei Sonnenuntergang<div class="flex items-center justify-between mt-3"><span class="text-sm text-gray-500">1:13 min</span><div><span class="font-medium text-sm text-blue-600">€40</span> <button class="ml-3 bg-blue-600 duration-300 hover:bg-blue-700 px-2 py-1 rounded text-white text-xs transition"onclick='buyPortfolioVideo("Bentwischer Skyline",40)'>Kaufen</button></div></div></div></div><div class="bg-white rounded-lg overflow-hidden shadow-md duration-300 hover:scale-[1.02] hover:shadow-lg transition group relative video-card"><div class="flex items-center justify-center relative bg-gray-800 h-64"><img alt="Wildnis"class="w-full h-full object-cover"src="wildnis.webp"loading="lazy"><div class="flex items-center justify-center absolute inset-0"></div></div><div class="p-4"><h3 class="text-gray-900 font-bold text-lg">Ruf der Wildnis</h3><p class="text-gray-600">Ein seltener Blick auf das harmonische Zusammenleben von Wildtieren und Landschaft.<div class="flex items-center justify-between mt-3"><span class="text-sm text-gray-500">1:48 min</span><div><span class="font-medium text-sm text-blue-600">45€</span> <button class="ml-3 bg-blue-600 duration-300 hover:bg-blue-700 px-2 py-1 rounded text-white text-xs transition"onclick='buyPortfolioVideo("Ruf der Wildnis",45)'>Kaufen</button></div></div></div></div></div></section><section class="py-16 bg-gray-50"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Unser Einsatzgebiet</h2><p class="text-gray-600 text-lg max-w-3xl mx-auto">Wir bieten unsere Drohnenvideografie-Dienste innerhalb eines 20km Radius um Rostock an</div><div class="grid grid-cols-1 gap-8 items-center lg:grid-cols-2"><div><div class="map-container"><div id="coverage-map"style="width:100%;height:100%"></div></div></div><div><h3 class="text-gray-900 font-bold mb-4 text-xl">Wir decken diese Orte ab:</h3><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div class="flex items-start"><div class="text-blue-600 flex-shrink-0 mt-1"><i class="fas fa-map-marker-alt"></i></div><div class="ml-3"><p class="font-medium text-gray-900">Warnemünde<p class="text-sm text-gray-600">Ostseebad mit Strandpromenade</div></div><div class="flex items-start"><div class="text-blue-600 flex-shrink-0 mt-1"><i class="fas fa-map-marker-alt"></i></div><div class="ml-3"><p class="font-medium text-gray-900">Graal-Müritz<p class="text-sm text-gray-600">Kurort mit Seebrücke</div></div><div class="flex items-start"><div class="text-blue-600 flex-shrink-0 mt-1"><i class="fas fa-map-marker-alt"></i></div><div class="ml-3"><p class="font-medium text-gray-900">Bad Doberan<p class="text-sm text-gray-600">Historische Innenstadt</div></div><div class="flex items-start"><div class="text-blue-600 flex-shrink-0 mt-1"><i class="fas fa-map-marker-alt"></i></div><div class="ml-3"><p class="font-medium text-gray-900">Kröpelin<p class="text-sm text-gray-600">Kleinstadt mit Windmühle</div></div><div class="flex items-start"><div class="text-blue-600 flex-shrink-0 mt-1"><i class="fas fa-map-marker-alt"></i></div><div class="ml-3"><p class="font-medium text-gray-900">Satow<p class="text-sm text-gray-600">Ländliche Umgebung</div></div><div class="flex items-start"><div class="text-blue-600 flex-shrink-0 mt-1"><i class="fas fa-map-marker-alt"></i></div><div class="ml-3"><p class="font-medium text-gray-900">Sanitz<p class="text-sm text-gray-600">Gemeinde mit See</div></div></div><div class="p-4 bg-yellow-50 border-l-4 border-yellow-400 mt-6"><div class="flex"><div class="flex-shrink-0"><i class="fas fa-exclamation-circle text-yellow-400"></i></div><div class="ml-3"><p class="text-sm text-yellow-700"><span class="font-medium">Hinweis:</span> Für Einsätze außerhalb des 20km Radius berechnen wir eine zusätzliche Anfahrtspauschale. Kontaktieren Sie uns für ein individuelles Angebot.</div></div></div></div></div></div></section><section class="bg-white py-16"id="booking"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="lg:grid-cols-2 lg:gap-8 lg:grid"><div class="mb-12 lg:mb-0"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Drohnenaufnahmen anfragen</h2><p class="text-gray-600 text-lg mb-6">Füllen Sie das Formular aus, um eine unverbindliche Anfrage für Drohnenaufnahmen in Rostock und Umgebung zu senden. Wir melden uns innerhalb von 24 Stunden bei Ihnen.<div class="bg-gray-50 p-6 rounded-lg"><h3 class="font-medium text-gray-900 text-lg mb-3">Was Sie erwarten können:</h3><ul class="space-y-3"><li class="flex items-start"><div class="mt-1 flex-shrink-0 text-green-500"><i class="fas fa-check-circle"></i></div><div class="ml-3"><p class="text-gray-700">Schnelle Rückmeldung innerhalb von 24 Stunden</div><li class="flex items-start"><div class="mt-1 flex-shrink-0 text-green-500"><i class="fas fa-check-circle"></i></div><div class="ml-3"><p class="text-gray-700">Transparente Preise ohne versteckte Kosten</div><li class="flex items-start"><div class="mt-1 flex-shrink-0 text-green-500"><i class="fas fa-check-circle"></i></div><div class="ml-3"><p class="text-gray-700">Professionelle Beratung zu Ihrem Projekt</div><li class="flex items-start"><div class="mt-1 flex-shrink-0 text-green-500"><i class="fas fa-check-circle"></i></div><div class="ml-3"><p class="text-gray-700">Flexible Terminvereinbarung</div></ul></div><div class="bg-white rounded-lg shadow mb-8 mt-8 p-4"><h3 class="font-medium text-gray-900 text-lg mb-3">Wettervorhersage Rostock</h3><a class="weatherwidget-io"href="https://forecast7.com/de/54d0912d10/rostock/"data-basecolor="#ffffff"data-days="3"data-font="Roboto"data-highcolor="#3b82f6"data-icons="Climacons Animated"data-label_1="ROSTOCK"data-label_2="WETTER"data-lowcolor="#3b82f6"data-mode="Current"data-textcolor="#000000"data-theme="pure">Rostock Wetter</a><script>!function(e,t,i){var n,r=e.getElementsByTagName(t)[0];e.getElementById(i)||((n=e.createElement(t)).id=i,n.src="https://weatherwidget.io/js/widget.min.js",r.parentNode.insertBefore(n,r))}(document,"script","weatherwidget-io-js")</script><div class="text-sm text-gray-500 mt-4"><i class="fas fa-info-circle mr-1"></i> Aktuelle Wetterdaten helfen bei der Terminplanung</div></div><div class="flex items-center mt-4"><div class="rounded-full bg-blue-100 flex-shrink-0 p-3"><i class="fas text-blue-600 fa-phone-alt"></i></div><div class="ml-4"><p class="text-gray-600">Oder rufen Sie uns direkt an:</p><a class="font-medium text-lg hover:text-blue-700 text-blue-600"href="tel:+49 1522 8507019">+49 1522 8507019</a></div></div></div><div><div class="bg-white rounded-lg overflow-hidden shadow-md"><div class="px-6 py-5 bg-gray-50 border-b border-gray-200"><h3 class="font-medium text-gray-900 text-lg">Anfrageformular</h3></div><div class="px-6 py-6"><form id="booking-form"onsubmit="return sendEmail()"><div class="space-y-6"><div><label class="font-medium text-sm block text-gray-700"for="name">Name *</label><div class="mt-1"><input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="name"required name="name"></div></div><div><label class="font-medium text-sm block text-gray-700"for="email">E-Mail *</label><div class="mt-1"><input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="email"required type="email"name="email"></div></div><div><label class="font-medium text-sm block text-gray-700"for="phone">Telefonnummer</label><div class="mt-1"><input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="phone"type="tel"name="phone"></div></div><div><label class="font-medium text-sm block text-gray-700"for="location">Ort der Aufnahmen *</label><div class="mt-1"><input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="location"required name="location"placeholder="Bitte geben Sie den genauen Ort innerhalb von 20km um Rostock an"></div></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-6"><div><label class="font-medium text-sm block text-gray-700"for="date">Gewünschter Termin *</label><div class="mt-1"><input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="date"required type="date"name="date"></div></div><div><label class="font-medium text-sm block text-gray-700"for="time">Uhrzeit</label><div class="mt-1"><input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="time"type="time"name="time"></div></div></div><div><label class="font-medium text-sm block text-gray-700"for="service">Art der Aufnahmen *</label><div class="mt-1"><select class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="service"name="service"required><option value="">Bitte auswählen<option value="Immobilien">Immobilien<option value="Hochzeit">Hochzeit<option value="Event">Event<option value="Landschaft">Landschaft<option value="Werbung">Werbung<option value="Andere">Andere</select></div></div><div><label class="font-medium text-sm block text-gray-700"for="details">Details zu Ihrem Projekt *</label><div class="mt-1"><textarea class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-3"id="details"rows="4"name="details"placeholder="Beschreiben Sie bitte Ihr Projekt, besondere Wünsche und Anforderungen"required></textarea></div></div><div class="flex items-start"><div class="flex items-center h-5"><input class="text-blue-600 border-gray-300 focus:ring-blue-500 h-4 rounded w-4"id="privacy"required type="checkbox"name="privacy"></div><div class="text-sm ml-3"><label class="font-medium text-gray-700"for="privacy">Ich stimme der Verarbeitung meiner Daten gemäß der <a class="text-blue-600 hover:text-blue-500 underline"href="datenschutz.html"rel="noopener"target="_blank">Datenschutzerklärung</a> zu *</div></div><div><button class="font-medium text-sm bg-blue-600 duration-300 hover:bg-blue-700 px-4 rounded-md text-white transition border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm flex justify-center py-3 w-full"type="submit">Anfrage senden <i class="fas ml-2 fa-paper-plane"></i></button></div><div class="hidden bg-green-100 mt-4 p-4 rounded-lg text-green-700"id="form-success">Vielen Dank! Ihre Anfrage wurde erfolgreich versendet.</div></div></form></div></div></div></div></div></section><section class="bg-white py-16"id="calendar"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Terminkalender</h2><p class="text-gray-600 text-lg max-w-3xl mx-auto">Verfügbare Termine für Drohnenaufnahmen</div><div class="bg-white rounded-lg shadow p-6"><div class="flex items-center justify-between mb-4"><h3 class="font-semibold text-xl"id="public-current-month">Januar 2023</h3></div><div class="grid gap-1 grid-cols-7 mb-2"><div class="font-medium text-center">Mo</div><div class="font-medium text-center">Di</div><div class="font-medium text-center">Mi</div><div class="font-medium text-center">Do</div><div class="font-medium text-center">Fr</div><div class="font-medium text-center">Sa</div><div class="font-medium text-center">So</div></div><div class="grid gap-1 grid-cols-7"id="public-calendar-days"></div></div></div></section><section class="py-16 bg-gray-50"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6"><div class="text-center mb-12"><h2 class="text-gray-900 font-bold mb-4 text-3xl">Häufige Fragen</h2><p class="text-gray-600 text-lg max-w-3xl mx-auto">Antworten auf die am häufigsten gestellten Fragen zu unseren Drohnenaufnahmen</div><div class="mx-auto max-w-3xl"><div class="space-y-4"><div class="bg-white rounded-lg overflow-hidden shadow"><button class="w-full focus:outline-none faq-question px-6 py-5 text-left"><div class="flex items-center justify-between"><span class="font-medium text-gray-900 text-lg">In welchem Radius um Rostock bieten Sie Ihre Dienste an?</span> <i class="fas text-blue-600 duration-300 fa-chevron-down transition-transform"></i></div></button><div class="px-6 faq-answer hidden pb-5 duration-300 ease-in-out max-h-0 overflow-hidden transition-all"><p class="text-gray-600">Wir bieten unsere Drohnenvideografie-Dienste innerhalb eines 20km Radius um das Zentrum von Rostock an. Dies umfasst Orte wie Warnemünde, Graal-Müritz, Bad Doberan, Kröpelin, Satow und Sanitz. Für Einsätze außerhalb dieses Radius berechnen wir eine zusätzliche Anfahrtspauschale.</div></div><div class="bg-white rounded-lg overflow-hidden shadow"><button class="w-full focus:outline-none faq-question px-6 py-5 text-left"><div class="flex items-center justify-between"><span class="font-medium text-gray-900 text-lg">Wie lange dauert es, bis ich mein fertiges Video erhalte?</span> <i class="fas text-blue-600 duration-300 fa-chevron-down transition-transform"></i></div></button><div class="px-6 faq-answer hidden pb-5"><p class="text-gray-600">Die Bearbeitungszeit hängt vom Umfang des Projekts ab. Für einfache Aufnahmen (Basic-Paket) beträgt die Bearbeitungszeit in der Regel 3-5 Werktage. Professionelle und Premium-Pakete mit umfangreicher Nachbearbeitung benötigen 7-10 Werktage. Bei dringenden Projekten bieten wir gegen Aufpreis auch Express-Bearbeitung innerhalb von 48 Stunden an.</div></div><div class="bg-white rounded-lg overflow-hidden shadow"><button class="w-full focus:outline-none faq-question px-6 py-5 text-left"><div class="flex items-center justify-between"><span class="font-medium text-gray-900 text-lg">Kann ich die Aufnahmen auch für kommerzielle Zwecke nutzen?</span> <i class="fas text-blue-600 duration-300 fa-chevron-down transition-transform"></i></div></button><div class="px-6 faq-answer hidden pb-5"><p class="text-gray-600">Ja, alle von uns erstellten Drohnenaufnahmen können uneingeschränkt für private und kommerzielle Zwecke genutzt werden. Sie erhalten die vollständigen Nutzungsrechte an den Aufnahmen. Bei Verwendung unserer Standardmusik in den Videos müssen Sie keine zusätzlichen Lizenzen erwerben.</div></div><div class="bg-white rounded-lg overflow-hidden shadow"><button class="w-full focus:outline-none faq-question px-6 py-5 text-left"><div class="flex items-center justify-between"><span class="font-medium text-gray-900 text-lg">Was passiert bei schlechtem Wetter am Drehtag?</span> <i class="fas text-blue-600 duration-300 fa-chevron-down transition-transform"></i></div></button><div class="px-6 faq-answer hidden pb-5"><p class="text-gray-600">Drohnenflüge sind bei Regen, starkem Wind oder schlechter Sicht nicht möglich. Wir behalten die Wettervorhersage im Blick und melden uns spätestens 24 Stunden vor dem Termin, falls eine Verschiebung notwendig sein sollte. Sie zahlen erst, wenn die Aufnahmen tatsächlich durchgeführt wurden. Wir finden gemeinsam einen Ersatztermin, der Ihnen passt.</div></div></div><div class="text-center mt-10"><p class="text-gray-600">Sie haben weitere Fragen?</p><a class="font-medium text-sm py-2 bg-blue-600 duration-300 hover:bg-blue-700 px-4 rounded-md text-white transition border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 inline-flex items-center mt-2 shadow-sm"href="#booking">Kontaktieren Sie uns <i class="fas ml-2 fa-envelope"></i></a></div></div></div></section><footer class="bg-gray-900 text-white"><div class="px-4 lg:px-8 max-w-7xl mx-auto sm:px-6 py-12"><div class="grid grid-cols-1 gap-8 md:grid-cols-4"><div><h3 class="font-bold mb-4 text-lg">Rostock Drohnenfilm</h3><p class="text-gray-400">Professionelle Drohnenvideografie in Rostock und Umgebung. Beeindruckende Luftaufnahmen für Ihr Projekt.</div><div><h3 class="font-bold mb-4 text-lg">Leistungen</h3><ul class="space-y-2"><li><a class="text-gray-400 hover:text-white"href="#">Immobilienvideografie</a><li><a class="text-gray-400 hover:text-white"href="#">Hochzeitsfilme</a><li><a class="text-gray-400 hover:text-white"href="#">Eventdokumentation</a><li><a class="text-gray-400 hover:text-white"href="#">Landschaftsaufnahmen</a><li><a class="text-gray-400 hover:text-white"href="#">Werbefilme</a></ul></div><div><h3 class="font-bold mb-4 text-lg">Informationen</h3><ul class="space-y-2"><li><a class="text-gray-400 hover:text-white"href="#">Über uns</a><li><a class="text-gray-400 hover:text-white"href="#">Portfolio</a><li><a class="text-gray-400 hover:text-white"href="#">Preise</a><li><a class="text-gray-400 hover:text-white"href="#">FAQ</a><li><a class="text-gray-400 hover:text-white"href="#">Blog</a></ul></div><div><h3 class="font-bold mb-4 text-lg">Kontakt</h3><ul class="space-y-2"><li class="flex items-center"><i class="fas fa-envelope mr-3 text-gray-400"></i> <a class="text-gray-400 hover:text-white"href="mailto:skysight.hro@gmail.com">skysight.hro@gmail.com</a><li class="flex items-center"><i class="fas fa-phone-alt mr-3 text-gray-400"></i> <a class="text-gray-400 hover:text-white"href="tel:+4915228507019">+49 1522 8507019</a></ul></div></div><div class="flex items-center justify-between border-gray-800 border-t flex-col md:flex-row mt-12 pt-8"><p class="text-sm text-gray-400">© 2023 SkySight Rostock. Alle Rechte vorbehalten.<div class="flex mt-4 md:mt-0 space-x-6"><a class="text-sm text-gray-400 hover:text-white"href="#">Impressum</a> <a class="text-sm text-gray-400 hover:text-white"href="#">Datenschutz</a> <a class="text-sm text-gray-400 hover:text-white"href="#">AGB</a></div></div></div></footer></div><div class="hidden duration-300 fixed inset-0 opacity-0 transition-opacity z-50"id="admin-login-modal"><div class="inset-0 absolute bg-black bg-opacity-50"></div><div class="mx-auto overflow-hidden bg-white mt-12 relative rounded-lg shadow-xl max-w-md"><button class="text-gray-500 hover:text-gray-700 absolute right-4 top-4"onclick="closeAdminLogin()"><i class="fas fa-times text-2xl"></i></button><div class="p-8"><h3 class="text-gray-900 font-bold text-2xl mb-6">Admin Login</h3><form id="admin-login-form"onsubmit="return checkAdminLogin(event)"><div class="mb-4"><label class="font-medium text-sm block text-gray-700 mb-1"for="admin-email">Email</label> <input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-2"id="admin-email"required type="email"></div><div class="mb-4"><label class="font-medium text-sm block text-gray-700 mb-1"for="admin-password">Passwort</label> <input class="px-4 rounded-md border w-full block border-gray-300 focus:border-blue-500 focus:ring-blue-500 shadow-sm py-2"id="admin-password"required type="password"></div><button class="px-4 rounded-md w-full bg-blue-600 duration-300 hover:bg-blue-700 text-white transition py-2"type="submit">Einloggen</button></form></div></div></div><div class="bg-white duration-300 fixed hidden inset-0 opacity-0 overflow-auto p-8 transition-opacity z-50"id="admin-calendar"><div class="mx-auto max-w-6xl"><div class="flex items-center justify-between mb-6"><h2 class="font-bold text-2xl">Terminkalender</h2><button class="text-gray-500 hover:text-gray-700"onclick="closeAdminCalendar()"><i class="fas fa-times text-2xl"></i></button></div><div class="flex justify-between mb-4"><button class="px-4 rounded-md bg-gray-200 py-2"onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button><h3 class="font-semibold text-xl"id="current-month">Januar 2023</h3><button class="px-4 rounded-md bg-gray-200 py-2"onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button></div><div class="grid gap-1 grid-cols-7 mb-2"><div class="font-medium text-center">Mo</div><div class="font-medium text-center">Di</div><div class="font-medium text-center">Mi</div><div class="font-medium text-center">Do</div><div class="font-medium text-center">Fr</div><div class="font-medium text-center">Sa</div><div class="font-medium text-center">So</div></div><div class="grid gap-1 grid-cols-7"id="calendar-days"></div><div class="mt-8"><h3 class="font-semibold text-xl mb-4">Neuen Termin hinzufügen</h3><form id="add-appointment-form"class="space-y-4"><div><label class="font-medium text-sm block text-gray-700"for="appointment-date">Datum</label> <input class="px-4 rounded-md border w-full block border-gray-300 py-2"id="appointment-date"required type="date"></div><div><label class="font-medium text-sm block text-gray-700"for="appointment-time">Uhrzeit</label> <input class="px-4 rounded-md border w-full block border-gray-300 py-2"id="appointment-time"required type="time"></div><div><label class="font-medium text-sm block text-gray-700"for="appointment-name">Kundenname</label> <input class="px-4 rounded-md border w-full block border-gray-300 py-2"id="appointment-name"required></div><div><label class="font-medium text-sm block text-gray-700"for="appointment-service">Service</label> <select class="px-4 rounded-md border w-full block border-gray-300 py-2"id="appointment-service"><option value="Immobilien">Immobilien<option value="Hochzeit">Hochzeit<option value="Event">Event<option value="Landschaft">Landschaft</select></div><div><label class="font-medium text-sm block text-gray-700"for="appointment-notes">Notizen</label> <textarea class="px-4 rounded-md border w-full block border-gray-300 py-2"id="appointment-notes"rows="3"></textarea></div><button class="px-4 rounded-md bg-blue-600 duration-300 hover:bg-blue-700 text-white transition py-2"type="submit">Termin speichern</button></form></div></div></div><div class="hidden duration-300 fixed inset-0 opacity-0 transition-opacity z-50"id="service-popup"><div class="inset-0 absolute bg-black bg-opacity-50"></div><div class="mx-auto overflow-hidden bg-white mt-12 relative rounded-lg shadow-xl max-w-2xl"><button class="text-gray-500 hover:text-gray-700 absolute right-4 top-4"id="close-popup"><i class="fas fa-times text-2xl"></i></button><div class="p-8"><h3 class="text-gray-900 font-bold mb-4 text-2xl"id="popup-title"></h3><div class="text-gray-600 space-y-4"id="popup-content"></div></div></div></div><script>// Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyAxrzTbnFmcc3TS5MfIYg8GTl4B5jFpuYI",
-          authDomain: "drohne-e34ef.firebaseapp.com",
-          projectId: "drohne-e34ef",
-          storageBucket: "drohne-e34ef.appspot.com",
-          messagingSenderId: "418105868792",
-          appId: "1:418105868792:web:abc123" // ← optional, falls vorhanden
-        };
+<!DOCTYPE html>
+<html lang="de">
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
-        
-        function showAdminLogin() {
-            const modal = document.getElementById('admin-login-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('opacity-100');
-            }, 10);
-        }
-        
-        function closeAdminLogin() {
-            const modal = document.getElementById('admin-login-modal');
-            modal.classList.remove('opacity-100');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-        
-        async function checkAdminLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('admin-email').value;
-            const password = document.getElementById('admin-password').value;
-            
-            try {
-                await auth.signInWithEmailAndPassword(email, password);
-                // Store login state in localStorage
-                localStorage.setItem('adminLoggedIn', 'true');
-                closeAdminLogin();
-                showAdminCalendar();
-            } catch (error) {
-                alert('Login fehlgeschlagen: ' + error.message);
-            }
-            return false;
-        }
-        
-        async function showAdminCalendar() {
-            const calendar = document.getElementById('admin-calendar');
-            calendar.classList.remove('hidden');
-            setTimeout(() => {
-                calendar.classList.add('opacity-100');
-            }, 10);
-            await generateCalendar(new Date());
-        }
-        
-        function closeAdminCalendar() {
-            const calendar = document.getElementById('admin-calendar');
-            calendar.classList.remove('opacity-100');
-            setTimeout(() => {
-                calendar.classList.add('hidden');
-            }, 300);
-            // Optional: Sign out when closing calendar
-            auth.signOut();
-            localStorage.removeItem('adminLoggedIn');
-        }
-        
-        // Calendar functions
-        let currentMonth = new Date().getMonth();
-        let currentYear = new Date().getFullYear();
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="SkySight HRO bietet professionelle Drohnenaufnahmen, Luftbilder und Videos aus Rostock und Umgebung. Jetzt anfragen!">
+    <meta name="keywords"
+        content="Drohne, Drohnenvideos, Aufnahmen,Luft, Video, Luftaufnahmen, Rostock, SkySight, Drohnenservice">
+    <meta name="author" content="SkySight HRO">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pilot-hro.github.io/SkySight-hro/">
 
-        // Initialize public calendar
-        function initPublicCalendar() {
-            generatePublicCalendar(new Date());
-        }
+    <title>SkySight HRO – Drohnenvideos aus Rostock</title>
 
-        async function generatePublicCalendar(date) {
-            const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
-                               "Juli", "August", "September", "Oktober", "November", "Dezember"];
-            
-            // Adjust for UTC+2 timezone
-            const adjustedDate = new Date(date);
-            adjustedDate.setHours(date.getHours() + 2);
-            
-            document.getElementById('public-current-month').textContent = 
-                `${monthNames[adjustedDate.getMonth()]} ${adjustedDate.getFullYear()}`;
-            
-            const firstDay = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), 1);
-            const lastDay = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth() + 1, 0);
-            
-            let days = "";
-            let dayCount = 1;
-            
-            // Add empty cells for days before the first day of month
-            // Using Monday as first day (1) in JavaScript Date
-            const firstDayOfWeek = firstDay.getDay(); // 0=Sunday, 1=Monday, etc.
-            let emptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Adjust for Monday start
-            for (let i = 0; i < emptyDays; i++) {
-                days += `<div class="h-16 border border-gray-200 bg-gray-100"></div>`;
-            }
-            
-            // Add cells for each day of month
-            for (let i = 1; i <= lastDay.getDate(); i++) {
-                // Create date in local timezone (UTC+2)
-                const currentDate = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), i);
-                currentDate.setHours(12, 0, 0, 0); // Set to midday to avoid timezone issues
-                const appointments = await getAppointmentsForDate(currentDate);
-                
-                let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden";
-                if (appointments.length > 0) {
-                    dayClass += " bg-blue-50";
-                }
-                
-                days += `<div class="${dayClass}">
-                    <div class="font-medium">${i}</div>
-                    ${appointments.length > 0 ? '<div class="text-xs text-blue-600">Termin gebucht</div>' : ''}
-                </div>`;
-            }
-            
-            document.getElementById('public-calendar-days').innerHTML = days;
-        }
-        
-        async function generateCalendar(date) {
-            const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
-                               "Juli", "August", "September", "Oktober", "November", "Dezember"];
-            
-            document.getElementById('current-month').textContent = 
-                `${monthNames[date.getMonth()]} ${date.getYear() + 1900}`;
-            
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-            
-            let days = "";
-            let dayCount = 1;
-            
-            // Add empty cells for days before the first day of month
-            // Using Monday as first day (1) in JavaScript Date
-            const firstDayOfWeek = firstDay.getDay(); // 0=Sunday, 1=Monday, etc.
-            let emptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Adjust for Monday start
-            for (let i = 0; i < emptyDays; i++) {
-                days += `<div class="h-24 border border-gray-200 bg-gray-100"></div>`;
-            }
-            
-            // Add cells for each day of month
-            for (let i = 1; i <= lastDay.getDate(); i++) {
-                // Create date in local timezone (UTC+2)
-                const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-                currentDate.setHours(12, 0, 0, 0); // Set to midday to avoid timezone issues
-                const appointments = await getAppointmentsForDate(currentDate);
-                
-                let appointmentHtml = "";
-                appointments.forEach(app => {
-                    appointmentHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded truncate flex justify-between items-center">
-                        <span>${app.time} - ${app.name}</span>
-                        <button onclick="deleteAppointment('${app.date}', ${appointments.indexOf(app)})" class="text-red-500 hover:text-red-700 ml-2">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>`;
-                });
-                
-                days += `<div class="h-24 border border-gray-200 p-1 overflow-auto">
-                    <div class="font-medium">${i}</div>
-                    ${appointmentHtml}
-                </div>`;
-            }
-            
-            document.getElementById('calendar-days').innerHTML = days;
-        }
-        
-        function prevMonth() {
-            currentMonth--;
-            if (currentMonth < 0) {
-                currentMonth = 11;
-                currentYear--;
-            }
-            generateCalendar(new Date(currentYear, currentMonth, 1));
-        }
-        
-        function nextMonth() {
-            currentMonth++;
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
-            generateCalendar(new Date(currentYear, currentMonth, 1));
-        }
-        
-        // Appointment storage with Firebase
-        async function getAppointments() {
-            const snapshot = await db.collection('appointments').get();
-            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        }
-        
-        async function saveAppointment(appointment) {
-            await db.collection('appointments').add(appointment);
-        }
-        
-        async function getAppointmentsForDate(date) {
-            const dateStr = date.toISOString().split('T')[0];
-            const snapshot = await db.collection('appointments')
-                .where('date', '==', dateStr)
-                .get();
-            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        }
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="icon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon.png">
 
-        async function deleteAppointment(dateStr, index) {
-            if (!confirm('Möchten Sie diesen Termin wirklich löschen?')) return;
-            
-            try {
-                const snapshot = await db.collection('appointments')
-                    .where('date', '==', dateStr)
-                    .get();
-                
-                if (snapshot.docs.length > index) {
-                    const docId = snapshot.docs[index].id;
-                    await db.collection('appointments').doc(docId).delete();
-                    generateCalendar(new Date(currentYear, currentMonth, 1));
-                    alert('Termin erfolgreich gelöscht!');
-                } else {
-                    throw new Error('Termin nicht gefunden');
-                }
-            } catch (error) {
-                console.error('Fehler beim Löschen:', error);
-                alert('Fehler beim Löschen des Termins: ' + error.message);
-            }
-        }
-        
-        // Form submission with Firebase
-        document.getElementById('add-appointment-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const appointment = {
-                date: new Date(document.getElementById('appointment-date').value).toISOString().split('T')[0],
-                time: document.getElementById('appointment-time').value,
-                name: document.getElementById('appointment-name').value,
-                service: document.getElementById('appointment-service').value,
-                notes: document.getElementById('appointment-notes').value,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-            
-            try {
-                await saveAppointment(appointment);
-                generateCalendar(new Date(currentYear, currentMonth, 1));
-                this.reset();
-                alert('Termin erfolgreich gespeichert!');
-            } catch (error) {
-                alert('Fehler beim Speichern: ' + error.message);
-            }
-        });
-        
-        // Initialize public calendar
-        initPublicCalendar();
-        
-        // Check auth state - only for maintaining login state
-        auth.onAuthStateChanged(user => {
-            // We don't automatically show admin calendar here
-        });
-        
-        // Service content definitions
-        const serviceContents = {
-            'Immobilienvideografie': `
-                <p>Unsere Immobilienvideografie bietet Ihnen atemberaubende Luftaufnahmen Ihrer Immobilien, die potenzielle Käufer oder Mieter beeindrucken werden.</p>
-                <p><strong>Vorteile:</strong></p>
-                <ul class="list-disc pl-5 space-y-2">
-                    <li>Präsentation des gesamten Grundstücks aus der Vogelperspektive</li>
-                    <li>Hervorhebung der Lage und Umgebung</li>
-                    <li>Professionelle Nachbearbeitung für optimalen Eindruck</li>
-                    <li>Individuelle Gestaltung nach Ihren Wünschen</li>
-                </ul>
-                <p>Ideal für Makler, Bauträger und private Verkäufer, die ihre Immobilie optimal präsentieren möchten.</p>
-            `,
-            'Hochzeitsfilme': `
-                <p>Verleihen Sie Ihrem Hochzeitsfilm eine besondere Perspektive mit unseren Drohnenaufnahmen.</p>
-                <p><strong>Was wir bieten:</strong></p>
-                <ul class="list-disc pl-5 space-y-2">
-                    <li>Atemberaubende Aufnahmen Ihrer Hochzeitslocation</li>
-                    <li>Luftaufnahmen des Brautpaares und der Gäste</li>
-                    <li>Professionelle Schnitt- und Nachbearbeitung</li>
-                    <li>Kombination mit Bodenaufnahmen möglich</li>
-                    <li>Individuelle musikalische Untermalung</li>
-                </ul>
-                <p>Erhalten Sie einen Film, der Ihren besonderen Tag perfekt einfängt und Ihnen lebenslange Erinnerungen schenkt.</p>
-            `,
-            'Eventdokumentation': `
-                <p>Machen Sie Ihre Veranstaltung unvergesslich mit spektakulären Luftaufnahmen.</p>
-                <p><strong>Unsere Leistungen:</strong></p>
-                <ul class="list-disc pl-5 space-y-2">
-                    <li>Dynamische Aufnahmen von Großveranstaltungen</li>
-                    <li>Einzigartige Perspektiven für Sportevents</li>
-                    <li>Beeindruckende Aufnahmen von Firmenfeiern</li>
-                    <li>Professionelle Nachbearbeitung mit Ihrem Branding</li>
-                    <li>Optionale Live-Übertragung</li>
-                </ul>
-                <p>Perfekt für Eventmanager, Marketingabteilungen und Veranstalter, die ihren Gästen etwas Besonderes bieten möchten.</p>
-            `
-        };
+    <!-- Open Graph -->
+    <meta property="og:title" content="SkySight HRO – Drohnenvideos aus Rostock">
+    <meta property="og:description" content="Professionelle Luftaufnahmen und Drohnenvideos in Rostock und Umgebung.">
+    <meta property="og:image" content="https://pilot-hro.github.io/SkySight-hro/poster.webp">
+    <meta property="og:url" content="https://pilot-hro.github.io/SkySight-hro/">
+    <meta property="og:type" content="website">
 
-        // Service popup functions
-        function showServicePopup(serviceName) {
-            const popup = document.getElementById('service-popup');
-            const popupTitle = document.getElementById('popup-title');
-            const popupContent = document.getElementById('popup-content');
-            
-            popupTitle.textContent = serviceName;
-            popupContent.innerHTML = serviceContents[serviceName];
-            popup.classList.remove('hidden');
-            setTimeout(() => {
-                popup.classList.add('opacity-100');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-        }
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
 
-        function closeServicePopup() {
-            const popup = document.getElementById('service-popup');
-            popup.classList.remove('opacity-100');
-            setTimeout(() => {
-                popup.classList.add('hidden');
-            }, 300);
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close popup when clicking X or outside
-        document.getElementById('close-popup').addEventListener('click', closeServicePopup);
-        document.getElementById('service-popup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeServicePopup();
-            }
-        });</script><script>function buyPortfolioVideo(title, price) {
-    // Scroll zum Formular
-    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-
-    // Felder ausblenden
-    const fieldsToHide = ['location', 'date', 'time', 'phone', 'service', 'package'];
-    fieldsToHide.forEach(name => {
-        const field = document.querySelector(`#booking-form [name="${name}"]`);
-        const label = document.querySelector(`label[for="${name}"]`);
-        const wrapper = field?.closest('div');
-
-        if (wrapper) wrapper.style.display = 'none';
-        if (label) label.style.display = 'none';
-
-        // Pflicht-Attribute entfernen
-        if (field) field.removeAttribute('required');
-    });
-
-    // Pflichtfelder reduzieren
-    ['name', 'email', 'details'].forEach(name => {
-        const field = document.querySelector(`#booking-form [name="${name}"]`);
-        if (field) field.setAttribute('required', '');
-    });
-
-    // Details vorausfüllen
-    const detailsField = document.querySelector('#booking-form [name="details"]');
-    if (detailsField) detailsField.value = `Ich möchte gerne das Portfolio-Video "${title}" für ${price} € kaufen.`;
-
-    // Optional: Hinweis einblenden
-    const hint = document.createElement('div');
-    hint.className = 'mb-4 p-3 bg-blue-100 text-blue-800 rounded';
-    hint.innerText = `Portfolio-Video: "${title}" – ${price} €`;
-    const form = document.getElementById('booking-form');
-    form.insertBefore(hint, form.firstChild);
-}
-
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-
-        // FAQ accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const icon = button.querySelector('i');
-                
-                // Toggle answer visibility with animation
-                if (answer.classList.contains('hidden')) {
-                    answer.classList.remove('hidden');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                } else {
-                    answer.style.maxHeight = '0';
-                    setTimeout(() => answer.classList.add('hidden'), 300);
-                }
-                
-                // Rotate icon
-                icon.classList.toggle('transform');
-                icon.classList.toggle('rotate-180');
-            });
-        });
-
-        // Portfolio video selection
-        let selectedVideo = null;
-        
-        function selectVideo(title, price) {
-            selectedVideo = {title, price};
-            document.getElementById('package').value = 'Portfolio';
-            document.getElementById('details').value = `Ich möchte das Portfolio-Video "${title}" für ${price}€ kaufen`;
-            document.getElementById('booking').scrollIntoView({behavior: 'smooth'});
-            alert(`"${title}" wurde zu Ihrer Anfrage hinzugefügt. Bitte überprüfen Sie das Formular unten.`);
-        }
-
-        // Email sending function with Firebase
-        async function sendEmail() {
-            const form = document.getElementById('booking-form');
-            const formData = new FormData(form);
-            const formValues = Object.fromEntries(formData.entries());
-            
-            // Show loading state
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
-            submitBtn.disabled = true;
-
-            // Send data to server
-            fetch('https://formspree.io/f/mvgqpzbk', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: formValues.name,
-                    email: formValues.email,
-                    phone: formValues.phone,
-                    location: formValues.location,
-                    date: formValues.date,
-                    time: formValues.time,
-                    service: formValues.service,
-                    package: formValues.package,
-                    details: formValues.details,
-                    _replyto: formValues.email,
-                    _subject: `Neue Drohnenaufnahmen-Anfrage von ${formValues.name}`
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Show success message
-                    document.getElementById('form-success').classList.remove('hidden');
-                    form.reset();
-                    
-                    // Scroll to success message
-                    setTimeout(() => {
-                        document.getElementById('form-success').scrollIntoView({behavior: 'smooth'});
-                    }, 100);
-                } else {
-                    throw new Error('Fehler beim Senden der Anfrage');
-                }
-            })
-            .catch(error => {
-                alert('Es gab ein Problem beim Senden Ihrer Anfrage. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per Telefon.');
-                console.error('Error:', error);
-            })
-            .finally(() => {
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-            });
-            
-            return false;
-        }
-
-        // Service popup functions
-        function showServicePopup(serviceName) {
-            const popup = document.getElementById('service-popup');
-            const popupTitle = document.getElementById('popup-title');
-            const popupContent = document.getElementById('popup-content');
-            
-            popupTitle.textContent = serviceName;
-            popupContent.innerHTML = serviceContents[serviceName];
-            popup.classList.remove('hidden');
-            setTimeout(() => {
-                popup.classList.add('opacity-100');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeServicePopup() {
-            const popup = document.getElementById('service-popup');
-            popup.classList.remove('opacity-100');
-            setTimeout(() => {
-                popup.classList.add('hidden');
-            }, 300);
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close popup when clicking X or outside
-        document.getElementById('close-popup').addEventListener('click', closeServicePopup);
-        document.getElementById('service-popup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeServicePopup();
-            }
-        });
-
-
-        // Leaflet Map with 20km radius circle
-        const map = L.map('coverage-map').setView([54.0924413, 12.0795075], 11);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-        
-        // Add 20km radius circle around Rostock
-        L.circle([54.0924413, 12.0795075], {
-            color: '#3b82f6',
-            fillColor: '#3b82f6',
-            fillOpacity: 0.2,
-            radius: 20000 // 20km in meters
-        }).addTo(map);
-        
-        // Add marker for Rostock center
-        L.marker([54.0924413, 12.0795075]).addTo(map)
-            .bindPopup('Rostock<br>20km Radius')
-            .openPopup();
-
-        // Scroll Fade-In Observer
-        const sections = document.querySelectorAll('section');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('section-show');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        sections.forEach(section => {
-            section.classList.add('section-hidden');
-            observer.observe(section);
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        }
                     }
                 }
-            });
-        });
-        const toggle = document.getElementById('theme-toggle');
-        const icon = document.getElementById('theme-icon');
-        const body = document.body;
-
-        // Theme aus localStorage laden
-        if (localStorage.theme === 'dark') {
-            body.classList.add('dark');
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        }
-
-        toggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            if (body.classList.contains('dark')) {
-            localStorage.theme = 'dark';
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-            } else {
-            localStorage.theme = 'light';
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
             }
-        });</script>
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "SkySight HRO",
+      "image": [
+        "https://pilot-hro.github.io/SkySight-hro/poster.webp",
+        "https://pilot-hro.github.io/SkySight-hro/logo.png"
+       ],
+      "logo": "https://pilot-hro.github.io/SkySight-hro/logo.png",
+      "description": "Professionelle Drohnenaufnahmen und Luftbilder i Rostock und Umgebung.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Rostock",
+        "addressRegion": "MV",
+        "addressCountry": "DE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 54.0924413,
+        "longitude": 12.0795075
+      },
+      "url": "https://pilot-hro.github.io/SkySight-hro/",
+      "telephone": "+4915228507019",
+      "priceRange": "€€",
+      "areaServed": "Rostock"
+    }
+    </script>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+    <!-- Navigation -->
+    <nav class="bg-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img class="h-10 mr-2" src="logo.png" alt="SkySight Rostock Logo">
+                        <span class="font-bold text-xl text-gray-900">SkySight Rostock</span>
+                        <button id="theme-toggle"
+                            class="ml-4 p-2 rounded-full text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                            <i id="theme-icon" class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="hidden md:flex md:items-center md:ml-6 md:space-x-8">
+                    <a href="#about"
+                        class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Über mich</a>
+                    <a href="#services"
+                        class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Leistungen</a>
+                    <a href="#portfolio"
+                        class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Portfolio</a>
+                    <a href="#calendar"
+                        class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Termine</a>
+                    <a href="#booking"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition duration-300">Anfrage
+                        senden</a>
+                    <button onclick="showAdminLogin()"
+                        class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Login</button>
+                </div>
+                <div class="flex items-center md:hidden -mr-2">
+                    <button type="button" id="mobile-menu-button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Hauptmenü öffnen</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about"
+                    class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Über
+                    mich</a>
+                <a href="#services"
+                    class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Leistungen</a>
+                <a href="#portfolio"
+                    class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Portfolio</a>
+                <a href="#calendar"
+                    class="text-gray-900 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Termine</a>
+                <a href="#booking"
+                    class="bg-blue-600 text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700 transition duration-300">Anfrage
+                    senden</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Parallax Hero Background -->
+    <div class="hero-bg"></div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative z-10 flex items-center justify-center text-white" style="height: 100vh;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1
+                class="font-display text-5xl md:text-7xl font-bold mb-6 animate-[fadeInUp_1s_ease-out] tracking-tight leading-tight">
+                Professionelle<br />Drohnenvideos aus Rostock</h1>
+            <p
+                class="text-xl md:text-2xl mb-10 opacity-0 animate-[fadeInUp_1s_ease-out_0.2s_forwards] max-w-3xl mx-auto font-light">
+                Beeindruckende Luftaufnahmen für Ihr Projekt – innerhalb von 20km um Rostock</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#booking"
+                    class="wave-btn bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition duration-300 shadow-lg shadow-blue-600/30">Jetzt
+                    anfragen</a>
+                <a href="#portfolio"
+                    class="wave-btn bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition duration-300">Portfolio
+                    ansehen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container with white background to cover fixed hero -->
+    <div class="content-container" style="position: relative; z-index: 1; background: #fff;">
+
+        <!-- About Section -->
+        <section id="about" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Über mich</h2>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="md:w-1/3">
+                                <div
+                                    class="w-48 h-48 mx-auto bg-gray-200 rounded-full overflow-hidden shadow-lg flex items-center justify-center">
+                                    <i class="fas fa-user text-6xl text-blue-600"></i>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3 text-left">
+                                <p class="text-lg text-gray-600 mb-4">
+                                    Ich bin 16 Jahre alt und fliege seit über einem Jahr leidenschaftlich Drohnen. Was
+                                    als Hobby begann, hat sich zu einer professionellen Dienstleistung entwickelt, mit
+                                    der ich beeindruckende Luftaufnahmen für Kunden in Rostock und Umgebung erstelle.
+                                </p>
+                                <p class="text-lg text-gray-600">
+                                    Dank meiner jahrelangen Erfahrung ermöglicht es mir einzigartige Perspektiven für
+                                    Ihre Videoprojekte zu finden. Ich lege großen Wert auf Qualität und Professionalität
+                                    in jeder Aufnahme.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Meine Leistungen</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Professionelle Drohnenaufnahmen für verschiedene
+                        Anlässe und Projekte in Rostock und Umgebung</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div
+                        class="service-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 hover:scale-[1.02] animate-[fadeInUp_0.5s_ease-out]">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-home text-5xl text-blue-600"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Immobilienvideografie</h3>
+                            <p class="text-gray-600 mb-4">Präsentieren Sie Immobilien aus der Vogelperspektive mit
+                                professionellen Drohnenaufnahmen, die den Wert Ihrer Objekte unterstreichen.</p>
+                            <button onclick="showServicePopup('Immobilienvideografie')"
+                                class="text-blue-600 font-medium hover:text-blue-800 flex items-center cursor-pointer">
+                                <span>Mehr erfahren</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div
+                        class="service-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 hover:scale-[1.02] animate-[fadeInUp_0.5s_ease-out]">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-ring text-5xl text-blue-600"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Hochzeitsfilme</h3>
+                            <p class="text-gray-600 mb-4">Einzigartige Luftaufnahmen Ihrer Hochzeitslocation und des
+                                Brautpaares für einen unvergesslichen Film Ihres besonderen Tages.</p>
+                            <button onclick="showServicePopup('Hochzeitsfilme')"
+                                class="text-blue-600 font-medium hover:text-blue-800 flex items-center cursor-pointer">
+                                <span>Mehr erfahren</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div
+                        class="service-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 hover:scale-[1.02] animate-[fadeInUp_0.5s_ease-out]">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-flag text-5xl text-blue-600"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Eventdokumentation</h3>
+                            <p class="text-gray-600 mb-4">Ob Konzert, Sportevent oder Firmenfeier - unsere
+                                Drohnenaufnahmen zeigen Ihre Veranstaltung aus einer neuen Perspektive.</p>
+                            <button onclick="showServicePopup('Eventdokumentation')"
+                                class="text-blue-600 font-medium hover:text-blue-800 flex items-center cursor-pointer">
+                                <span>Mehr erfahren</span>
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promo Video Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Promo Video</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Ein Beispiel meiner Drohnenaufnahmen</p>
+                </div>
+                <div class="max-w-4xl mx-auto aspect-w-16 aspect-h-9">
+                    <!-- Optimized Video: preload="none" saves bandwidth -->
+                    <video class="w-full rounded-lg shadow-lg" controls poster="poster.webp" preload="none">
+                        <source src="promo.mp4" type="video/mp4">
+                        Ihr Browser unterstützt das Video-Tag nicht.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Mein Portfolio</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Beispiele meiner Drohnenaufnahmen aus Rostock
+                        und Umgebung</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Portfolio Item 1 -->
+                    <div
+                        class="video-card group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 hover:scale-[1.02]">
+                        <div class="h-64 bg-gray-800 relative flex items-center justify-center overflow-hidden">
+                            <img src="skyline.webp" alt="Skyline von Bentwisch" class="w-full h-full object-cover"
+                                loading="lazy">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <!-- Play icon could go here if linking to video -->
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-900">Bentwischer Skyline</h3>
+                            <p class="text-gray-600">Panoramablick über Bentwisch bei Sonnenuntergang</p>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-sm text-gray-500">1:13 min</span>
+                                <div>
+                                    <span class="text-sm font-medium text-blue-600">€40</span>
+                                    <button onclick="buyPortfolioVideo('Bentwischer Skyline', 40)"
+                                        class="ml-3 bg-blue-600 text-white text-xs px-2 py-1 rounded hover:bg-blue-700 transition duration-300">Kaufen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Item 2 -->
+                    <div
+                        class="video-card group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300 hover:scale-[1.02]">
+                        <div class="h-64 bg-gray-800 relative flex items-center justify-center overflow-hidden">
+                            <img src="wildnis.webp" alt="Wildnis" class="w-full h-full object-cover" loading="lazy">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-900">Ruf der Wildnis</h3>
+                            <p class="text-gray-600">Ein seltener Blick auf das harmonische Zusammenleben von Wildtieren
+                                und Landschaft.</p>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-sm text-gray-500">1:48 min</span>
+                                <div>
+                                    <span class="text-sm font-medium text-blue-600">45€</span>
+                                    <button onclick="buyPortfolioVideo('Ruf der Wildnis', 45)"
+                                        class="ml-3 bg-blue-600 text-white text-xs px-2 py-1 rounded hover:bg-blue-700 transition duration-300">Kaufen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Mein Einsatzgebiet</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Ich biete meine Drohnenvideografie-Dienste
+                        innerhalb eines 20km Radius um Rostock an</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="map-container">
+                            <div id="coverage-map" style="width: 100%; height: 100%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Wir decken diese Orte ab:</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-blue-600"><i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium text-gray-900">Warnemünde</p>
+                                    <p class="text-sm text-gray-600">Ostseebad mit Strandpromenade</p>
+                                </div>
+                            </div>
+                            <!-- More locations can be added here -->
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-blue-600"><i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium text-gray-900">Graal-Müritz</p>
+                                    <p class="text-sm text-gray-600">Kurort mit Seebrücke</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-blue-600"><i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium text-gray-900">Bad Doberan</p>
+                                    <p class="text-sm text-gray-600">Historische Innenstadt</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-blue-600"><i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="font-medium text-gray-900">Sanitz</p>
+                                    <p class="text-sm text-gray-600">Gemeinde mit See</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-circle text-yellow-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        <span class="font-medium">Hinweis:</span> Für Einsätze außerhalb des 20km Radius
+                                        berechnen wir eine zusätzliche Anfahrtspauschale.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="bg-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:grid lg:grid-cols-2 lg:gap-8">
+                    <div class="mb-12 lg:mb-0">
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Drohnenaufnahmen
+                            anfragen</h2>
+                        <p class="text-lg text-gray-600 mb-6">Füllen Sie das Formular aus, um eine unverbindliche
+                            Anfrage für Drohnenaufnahmen in Rostock und Umgebung zu senden.</p>
+
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-900 mb-3">Was Sie erwarten können:</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 text-green-500 mt-1"><i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-gray-700">Schnelle Rückmeldung innerhalb von 24 Stunden</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="flex-shrink-0 text-green-500 mt-1"><i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-gray-700">Transparente Preise</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Weather Widget -->
+                        <div class="mt-8 bg-white shadow rounded-lg p-4 mb-8">
+                            <h3 class="text-lg font-medium text-gray-900 mb-3">Wettervorhersage Rostock</h3>
+                            <a class="weatherwidget-io" href="https://forecast7.com/de/54d0912d10/rostock/"
+                                data-label_1="ROSTOCK" data-label_2="WETTER" data-theme="pure">Rostock Wetter</a>
+                            <!-- Script for this is deferred in head/footer or managed differently? 
+                                 Weatherwidget often needs its own script inline or close by. 
+                                 I'll leave the script here or use the one in script.js if possible, 
+                                 but often third party widgets need their specific loader. 
+                                 Original had: <script>!function(e,t,i)...</script>
+                                 I will keep it here for reliability as it is specific to this widget.
+                            -->
+                            <script>
+                                !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+                            </script>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="px-6 py-5 bg-gray-50 border-b border-gray-200">
+                                <h3 class="text-lg font-medium text-gray-900">Anfrageformular</h3>
+                            </div>
+                            <div class="px-6 py-6">
+                                <form id="booking-form">
+                                    <div class="space-y-6">
+                                        <div>
+                                            <label for="name" class="block text-sm font-medium text-gray-700">Name
+                                                *</label>
+                                            <div class="mt-1">
+                                                <input type="text" name="name" id="name" required
+                                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="email" class="block text-sm font-medium text-gray-700">E-Mail
+                                                *</label>
+                                            <div class="mt-1">
+                                                <input type="email" name="email" id="email" required
+                                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="phone"
+                                                class="block text-sm font-medium text-gray-700">Telefonnummer</label>
+                                            <div class="mt-1">
+                                                <input type="tel" name="phone" id="phone"
+                                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="location" class="block text-sm font-medium text-gray-700">Ort
+                                                der Aufnahmen *</label>
+                                            <div class="mt-1">
+                                                <input type="text" name="location" id="location" required
+                                                    placeholder="Ort innerhalb von 20km um Rostock"
+                                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="date"
+                                                    class="block text-sm font-medium text-gray-700">Gewünschter Termin
+                                                    *</label>
+                                                <div class="mt-1">
+                                                    <input type="date" name="date" id="date" required
+                                                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="time"
+                                                    class="block text-sm font-medium text-gray-700">Uhrzeit</label>
+                                                <div class="mt-1">
+                                                    <input type="time" name="time" id="time"
+                                                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="service" class="block text-sm font-medium text-gray-700">Art der
+                                                Aufnahmen *</label>
+                                            <div class="mt-1">
+                                                <select id="service" name="service" required
+                                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md">
+                                                    <option value="">Bitte auswählen</option>
+                                                    <option value="Immobilien">Immobilien</option>
+                                                    <option value="Hochzeit">Hochzeit</option>
+                                                    <option value="Event">Event</option>
+                                                    <option value="Landschaft">Landschaft</option>
+                                                    <option value="Werbung">Werbung</option>
+                                                    <option value="Andere">Andere</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="details" class="block text-sm font-medium text-gray-700">Details
+                                                zu Ihrem Projekt *</label>
+                                            <div class="mt-1">
+                                                <textarea id="details" name="details" rows="4" required
+                                                    placeholder="Beschreiben Sie bitte Ihr Projekt"
+                                                    class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 border border-gray-300 rounded-md"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <div class="flex items-center h-5">
+                                                <input id="privacy" name="privacy" type="checkbox" required
+                                                    class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="privacy" class="font-medium text-gray-700">Ich stimme der
+                                                    Verarbeitung meiner Daten gemäß der <button type="button"
+                                                        onclick="showPrivacyModal()"
+                                                        class="text-blue-600 hover:text-blue-500 underline">Datenschutzerklärung</button>
+                                                    zu *</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="submit"
+                                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                                                Anfrage senden <i class="fas fa-paper-plane ml-2"></i>
+                                            </button>
+                                        </div>
+                                        <div id="form-success"
+                                            class="hidden mt-4 bg-green-100 p-4 rounded-lg text-green-700">
+                                            Vielen Dank! Ihre Anfrage wurde erfolgreich versendet.
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section id="calendar" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Terminkalender</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Verfügbare Termine</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 max-w-4xl mx-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold" id="public-current-month">Lade Kalender...</h3>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1 mb-2">
+                        <div class="text-center font-medium">Mo</div>
+                        <div class="text-center font-medium">Di</div>
+                        <div class="text-center font-medium">Mi</div>
+                        <div class="text-center font-medium">Do</div>
+                        <div class="text-center font-medium">Fr</div>
+                        <div class="text-center font-medium">Sa</div>
+                        <div class="text-center font-medium">So</div>
+                    </div>
+                    <div id="public-calendar-days" class="grid grid-cols-7 gap-1"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Häufige Fragen</h2>
+                    <div class="max-w-3xl mx-auto space-y-4 text-left">
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <button
+                                class="w-full px-6 py-5 text-left focus:outline-none faq-question flex justify-between items-center">
+                                <span class="text-lg font-medium text-gray-900">In welchem Radius um Rostock bieten Sie
+                                    meine Dienste an?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden px-6 pb-5 transition-all duration-300 overflow-hidden">
+                                <p class="text-gray-600">Ich biete meine Drohnenvideografie-Dienste innerhalb eines
+                                    20km Radius um das Zentrum von Rostock an. Einsätze außerhalb sind gegen Aufpreis
+                                    möglich.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <button
+                                class="w-full px-6 py-5 text-left focus:outline-none faq-question flex justify-between items-center">
+                                <span class="text-lg font-medium text-gray-900">Wie lange dauert es, bis ich mein Video
+                                    erhalte?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden px-6 pb-5 transition-all duration-300 overflow-hidden">
+                                <p class="text-gray-600">In der Regel erhalten Sie das fertige Video innerhalb von 3-5
+                                    Werktagen nach dem Dreh.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ CTA -->
+                    <div
+                        class="mt-12 text-center bg-blue-50/80 backdrop-blur-sm p-8 rounded-2xl border border-blue-100 max-w-3xl mx-auto relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-100 rounded-full blur-xl opacity-50">
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-display font-bold text-gray-900 mb-3">Sie haben weitere Fragen?</h3>
+                            <p class="text-gray-600 mb-6">Kein Problem! Schreiben Sie mir einfach eine E-Mail oder rufen
+                                Sie an.</p>
+                            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                <a href="mailto:skysight.hro@gmail.com"
+                                    class="wave-btn bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition duration-300 flex items-center justify-center shadow-lg shadow-blue-600/20 group">
+                                    <span class="bg-white/20 p-2 rounded-lg mr-3 group-hover:bg-white/30 transition"><i
+                                            class="fas fa-envelope"></i></span>
+                                    <span>E-Mail senden</span>
+                                </a>
+                                <a href="tel:+4915228507019"
+                                    class="wave-btn bg-white text-blue-600 border border-blue-200 px-8 py-4 rounded-xl font-bold hover:bg-gray-50 transition duration-300 flex items-center justify-center group">
+                                    <span class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:bg-blue-100 transition"><i
+                                            class="fas fa-phone"></i></span>
+                                    <span>+49 1522 8507019</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- Company Info -->
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">SkySight HRO</h3>
+                        <p class="text-gray-400">Professionelle Drohnenvideografie in Rostock.</p>
+                    </div>
+                    <!-- Links -->
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Rechtliches</h3>
+                        <ul class="space-y-2">
+                            <li><a href="impressum.html" class="text-gray-400 hover:text-white">Impressum</a></li>
+                            <li><button onclick="showPrivacyModal()"
+                                    class="text-gray-400 hover:text-white text-left">Datenschutz</button></li>
+                        </ul>
+                    </div>
+                    <!-- Contact -->
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Kontakt</h3>
+                        <p class="text-gray-400 mb-2">SkySight HRO</p>
+                        <p class="text-gray-400 mb-2">Bastian Schmidt</p>
+                        <p class="text-gray-400 mb-4">Rostock, Deutschland</p>
+                        <p class="text-gray-400 mb-2"><a href="mailto:skysight.hro@gmail.com"
+                                class="hover:text-white"><i class="fas fa-envelope mr-2"></i> skysight.hro@gmail.com</a>
+                        </p>
+                        <p class="text-gray-400"><a href="tel:+4915228507019" class="hover:text-white"><i
+                                    class="fas fa-phone mr-2"></i> +49 1522 8507019</a></p>
+                    </div>
+                </div>
+                <div class="mt-12 pt-8 border-t border-gray-800 text-center">
+                    <p class="text-sm text-gray-400">&copy; 2026 SkySight HRO. Alle Rechte vorbehalten.</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="admin-login-modal"
+        class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 relative">
+            <button onclick="closeAdminLogin()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"><i
+                    class="fas fa-times text-2xl"></i></button>
+            <div class="p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Admin Login</h3>
+                <form id="admin-login-form">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="admin-email" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Passwort</label>
+                        <input type="password" id="admin-password" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300">Einloggen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="service-popup"
+        class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 mt-12 relative overflow-hidden">
+            <button id="close-popup" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"><i
+                    class="fas fa-times text-2xl"></i></button>
+            <div class="p-8">
+                <h3 id="popup-title" class="text-2xl font-bold text-gray-900 mb-4"></h3>
+                <div id="popup-content" class="text-gray-600 space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-calendar"
+        class="hidden fixed inset-0 z-50 overflow-auto bg-white p-8 opacity-0 transition-opacity duration-300">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Admin Terminkalender</h2>
+                <button onclick="closeAdminCalendar()" class="text-gray-500 hover:text-gray-700"><i
+                        class="fas fa-times text-2xl"></i></button>
+            </div>
+
+            <div class="flex justify-between mb-4">
+                <button onclick="prevMonth()" class="px-4 py-2 bg-gray-200 rounded-md"><i
+                        class="fas fa-chevron-left"></i></button>
+                <h3 id="current-month" class="text-xl font-semibold">Januar 2023</h3>
+                <button onclick="nextMonth()" class="px-4 py-2 bg-gray-200 rounded-md"><i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="grid grid-cols-7 gap-1 mb-2">
+                <div class="text-center font-medium">Mo</div>
+                <div class="text-center font-medium">Di</div>
+                <div class="text-center font-medium">Mi</div>
+                <div class="text-center font-medium">Do</div>
+                <div class="text-center font-medium">Fr</div>
+                <div class="text-center font-medium">Sa</div>
+                <div class="text-center font-medium">So</div>
+            </div>
+            <div id="calendar-days" class="grid grid-cols-7 gap-1"></div>
+
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold mb-4">Neuen Termin hinzufügen</h3>
+                <form id="add-appointment-form" class="space-y-4 max-w-md">
+                    <input type="date" id="appointment-date" required class="w-full px-4 py-2 border rounded-md">
+                    <input type="time" id="appointment-time" required class="w-full px-4 py-2 border rounded-md">
+                    <input type="text" id="appointment-name" placeholder="Name" required
+                        class="w-full px-4 py-2 border rounded-md">
+                    <select id="appointment-service" class="w-full px-4 py-2 border rounded-md">
+                        <option value="Immobilien">Immobilien</option>
+                        <option value="Hochzeit">Hochzeit</option>
+                        <option value="Event">Event</option>
+                    </select>
+                    <textarea id="appointment-notes" placeholder="Notizen"
+                        class="w-full px-4 py-2 border rounded-md"></textarea>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Speichern</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal"
+        class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl mx-4 my-8 relative flex flex-col max-h-[90vh]">
+            <button onclick="closePrivacyModal()"
+                class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10 bg-white rounded-full p-1"><i
+                    class="fas fa-times text-2xl"></i></button>
+            <div class="p-8 overflow-y-auto">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                    <i class="fas fa-shield-alt text-blue-600 mr-3"></i> Datenschutzerklärung
+                </h2>
+
+                <div class="space-y-6 text-gray-700">
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h3 class="font-bold text-lg mb-2">Verantwortlicher</h3>
+                        <p>SkySight Rostock<br>
+                            vertreten durch: Bastian Schmidt<br>
+                            <a href="mailto:skysight.hro@gmail.com"
+                                class="text-blue-600 hover:underline">skysight.hro@gmail.com</a><br>
+                            +49 1522 8507019
+                        </p>
+                    </div>
+
+                    <section>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">1. Erhebung personenbezogener Daten</h3>
+                        <p>Ich erhebe nur die Daten, die du mir über das Kontaktformular freiwillig mitteilst (Name,
+                            E-Mail, Telefon, Projektangaben). Diese Daten werden ausschließlich zur Bearbeitung Ihrer
+                            Anfrage benötigt.</p>
+                        <p class="mt-2">Bei der Nutzung meiner Website werden zudem technische Zugriffsdaten
+                            (IP-Adresse, Datum/Uhrzeit, aufgerufene Seiten) protokolliert. Diese dienen der
+                            Sicherstellung eines ordnungsgemäßen Betriebs und werden nach 7 Tagen automatisch gelöscht.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">2. Zweck der Datenverarbeitung</h3>
+                        <p>Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet (Kontaktaufnahme,
+                            Angebotserstellung, Durchführung von Aufträgen). Eine Weitergabe an Dritte findet nicht
+                            statt, es sei denn, dies ist zur Vertragserfüllung erforderlich.</p>
+                    </section>
+
+                    <section>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">3. Speicherdauer</h3>
+                        <p>Ihre personenbezogenen Daten werden gelöscht, sobald der Zweck der Speicherung entfällt (z.B.
+                            nach Abschluss der Anfrage oder des Auftrags), sofern keine gesetzlichen
+                            Aufbewahrungspflichten entgegenstehen (z.B. 10 Jahre für Rechnungen).</p>
+                    </section>
+
+                    <section>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">4. Ihre Rechte</h3>
+                        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung,
+                            Widerspruch und Datenübertragbarkeit. Zudem können Sie sich bei einer
+                            Datenschutz-Aufsichtsbehörde beschweren.</p>
+                    </section>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button onclick="closePrivacyModal()"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js" defer></script>
+    <script src="js/script.js" defer></script>
+</body>
+
+</html>
