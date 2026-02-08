@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles from style.css can be moved here or kept separate. 
+   For now, we keep them separate to minimize risk, but we can import them if we want a single file. 
+   Let's keep this clean for Tailwind directives. */
