@@ -11,6 +11,33 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Accessibility */
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-120%);
+    background: #2563eb;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 0 0 0.5rem 0;
+    z-index: 100;
+    transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.6);
+    outline-offset: 3px;
+}
+
 /* Animations */
 .section-hidden {
     opacity: 0;
@@ -94,7 +121,7 @@ body {
 
 /* Hero Section */
 .hero-bg {
-    background-image: url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080&q=80');
+    background-image: url('../skyline.webp');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -131,6 +158,15 @@ nav {
     -webkit-backdrop-filter: blur(12px);
     background-color: rgba(255, 255, 255, 0.85) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Dark Mode Navigation */

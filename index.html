@@ -29,6 +29,7 @@
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="skyline.webp" as="image">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap"
         rel="stylesheet">
@@ -81,7 +82,7 @@
         "https://pilot-hro.github.io/SkySight-hro/logo.png"
        ],
       "logo": "https://pilot-hro.github.io/SkySight-hro/logo.png",
-      "description": "Professionelle Drohnenaufnahmen und Luftbilder i Rostock und Umgebung.",
+      "description": "Professionelle Drohnenaufnahmen und Luftbilder in Rostock und Umgebung.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Rostock",
@@ -102,6 +103,7 @@
 </head>
 
 <body class="bg-gray-50 font-sans">
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
 
     <!-- Navigation -->
     <nav class="bg-white sticky top-0 z-50 shadow-lg">
@@ -185,7 +187,7 @@
     </section>
 
     <!-- Main Content Container with white background to cover fixed hero -->
-    <div class="content-container" style="position: relative; z-index: 1; background: #fff;">
+    <div id="main-content" class="content-container" style="position: relative; z-index: 1; background: #fff;">
 
         <!-- About Section -->
         <section id="about" class="py-16 bg-gray-50">
