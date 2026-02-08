@@ -297,23 +297,7 @@ function showServicePopup(serviceName) {
     document.body.style.overflow = 'hidden';
 }
 
-function showPrivacyModal() {
-    const modal = document.getElementById('privacy-modal');
-    modal.classList.remove('hidden');
-    setTimeout(() => {
-        modal.classList.add('opacity-100');
-    }, 10);
-    document.body.style.overflow = 'hidden';
-}
 
-function closePrivacyModal() {
-    const modal = document.getElementById('privacy-modal');
-    modal.classList.remove('opacity-100');
-    setTimeout(() => {
-        modal.classList.add('hidden');
-    }, 300);
-    document.body.style.overflow = 'auto';
-}
 
 function closeServicePopup() {
     const popup = document.getElementById('service-popup');
@@ -514,14 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const privacyModal = document.getElementById('privacy-modal');
-    if (privacyModal) {
-        privacyModal.addEventListener('click', function (e) {
-            if (e.target === this) {
-                closePrivacyModal();
-            }
-        });
-    }
+
 
     // Leaflet Map
     if (document.getElementById('coverage-map')) {
