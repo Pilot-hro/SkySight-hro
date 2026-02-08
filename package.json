@@ -1,0 +1,25 @@
+{
+  "name": "skysight-hro",
+  "version": "1.0.0",
+  "description": "nothing",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pilot-hro/SkySight-hro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pilot-hro/SkySight-hro/issues"
+  },
+  "homepage": "https://github.com/Pilot-hro/SkySight-hro#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -32,37 +32,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap"
         rel="stylesheet">
+    <link rel="preload" as="image" href="hero.webp">
 
     <!-- Styles -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                            950: '#172554',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -81,7 +54,7 @@
         "https://pilot-hro.github.io/SkySight-hro/logo.png"
        ],
       "logo": "https://pilot-hro.github.io/SkySight-hro/logo.png",
-      "description": "Professionelle Drohnenaufnahmen und Luftbilder i Rostock und Umgebung.",
+      "description": "Professionelle Drohnenaufnahmen und Luftbilder in Rostock und Umgebung.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Rostock",
@@ -96,7 +69,16 @@
       "url": "https://pilot-hro.github.io/SkySight-hro/",
       "telephone": "+4915228507019",
       "priceRange": "€€",
-      "areaServed": "Rostock"
+      "areaServed": ["Rostock", "Warnemünde", "Bad Doberan", "Graal-Müritz"],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
+      "sameAs": []
     }
     </script>
 </head>
@@ -478,6 +460,18 @@
                                 !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
                             </script>
                         </div>
+
+                        <!-- Contact Info Box -->
+                        <div class="mt-6 bg-white shadow rounded-lg p-6 border-l-4 border-blue-600">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Schneller Kontakt</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Fragen? Rufen Sie einfach an!</p>
+                            <a href="tel:+4915228507019"
+                                class="flex items-center justify-center bg-blue-50 text-blue-700 px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition duration-300 group">
+                                <span class="bg-blue-200 p-2 rounded-full mr-3 group-hover:bg-blue-300 transition"><i
+                                        class="fas fa-phone-alt"></i></span>
+                                +49 1522 8507019
+                            </a>
+                        </div>
                     </div>
 
                     <div>
@@ -572,9 +566,9 @@
                                             </div>
                                             <div class="ml-3 text-sm">
                                                 <label for="privacy" class="font-medium text-gray-700">Ich stimme der
-                                                    Verarbeitung meiner Daten gemäß der <button type="button"
-                                                        onclick="showPrivacyModal()"
-                                                        class="text-blue-600 hover:text-blue-500 underline">Datenschutzerklärung</button>
+                                                    Verarbeitung meiner Daten gemäß der <a href="datenschutz.html"
+                                                        target="_blank"
+                                                        class="text-blue-600 hover:text-blue-500 underline">Datenschutzerklärung</a>
                                                     zu *</label>
                                             </div>
                                         </div>
@@ -699,8 +693,7 @@
                         <h3 class="text-lg font-bold mb-4">Rechtliches</h3>
                         <ul class="space-y-2">
                             <li><a href="impressum.html" class="text-gray-400 hover:text-white">Impressum</a></li>
-                            <li><button onclick="showPrivacyModal()"
-                                    class="text-gray-400 hover:text-white text-left">Datenschutz</button></li>
+                            <li><a href="datenschutz.html" class="text-gray-400 hover:text-white">Datenschutz</a></li>
                         </ul>
                     </div>
                     <!-- Contact -->
@@ -811,69 +804,7 @@
         </div>
     </div>
 
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-modal"
-        class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl mx-4 my-8 relative flex flex-col max-h-[90vh]">
-            <button onclick="closePrivacyModal()"
-                class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10 bg-white rounded-full p-1"><i
-                    class="fas fa-times text-2xl"></i></button>
-            <div class="p-8 overflow-y-auto">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
-                    <i class="fas fa-shield-alt text-blue-600 mr-3"></i> Datenschutzerklärung
-                </h2>
 
-                <div class="space-y-6 text-gray-700">
-                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                        <h3 class="font-bold text-lg mb-2">Verantwortlicher</h3>
-                        <p>SkySight Rostock<br>
-                            vertreten durch: Bastian Schmidt<br>
-                            <a href="mailto:skysight.hro@gmail.com"
-                                class="text-blue-600 hover:underline">skysight.hro@gmail.com</a><br>
-                            +49 1522 8507019
-                        </p>
-                    </div>
-
-                    <section>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">1. Erhebung personenbezogener Daten</h3>
-                        <p>Ich erhebe nur die Daten, die du mir über das Kontaktformular freiwillig mitteilst (Name,
-                            E-Mail, Telefon, Projektangaben). Diese Daten werden ausschließlich zur Bearbeitung Ihrer
-                            Anfrage benötigt.</p>
-                        <p class="mt-2">Bei der Nutzung meiner Website werden zudem technische Zugriffsdaten
-                            (IP-Adresse, Datum/Uhrzeit, aufgerufene Seiten) protokolliert. Diese dienen der
-                            Sicherstellung eines ordnungsgemäßen Betriebs und werden nach 7 Tagen automatisch gelöscht.
-                        </p>
-                    </section>
-
-                    <section>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">2. Zweck der Datenverarbeitung</h3>
-                        <p>Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet (Kontaktaufnahme,
-                            Angebotserstellung, Durchführung von Aufträgen). Eine Weitergabe an Dritte findet nicht
-                            statt, es sei denn, dies ist zur Vertragserfüllung erforderlich.</p>
-                    </section>
-
-                    <section>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">3. Speicherdauer</h3>
-                        <p>Ihre personenbezogenen Daten werden gelöscht, sobald der Zweck der Speicherung entfällt (z.B.
-                            nach Abschluss der Anfrage oder des Auftrags), sofern keine gesetzlichen
-                            Aufbewahrungspflichten entgegenstehen (z.B. 10 Jahre für Rechnungen).</p>
-                    </section>
-
-                    <section>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">4. Ihre Rechte</h3>
-                        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung,
-                            Widerspruch und Datenübertragbarkeit. Zudem können Sie sich bei einer
-                            Datenschutz-Aufsichtsbehörde beschweren.</p>
-                    </section>
-                </div>
-
-                <div class="mt-8 text-center">
-                    <button onclick="closePrivacyModal()"
-                        class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Schließen</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
