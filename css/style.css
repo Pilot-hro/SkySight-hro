@@ -94,7 +94,7 @@ body {
 
 /* Hero Section */
 .hero-bg {
-    background-image: url('https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080&q=80');
+    background-image: url('../hero.webp');
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -293,4 +293,30 @@ body.dark ::-webkit-scrollbar-track {
 
 body.dark ::-webkit-scrollbar-thumb {
     background: #334155;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .hero-bg {
+        animation: none;
+    }
+
+    .wave-btn:hover:after {
+        animation: none;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
 }
