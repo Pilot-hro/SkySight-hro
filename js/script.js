@@ -99,24 +99,7 @@ async function generatePublicCalendar(year, month) {
 
     let days = "";
 
-    // Optimization: Fetch all appointments for the month at once
-    let appointmentsMap = new Map();
-    try {
-        if (typeof firebase !== 'undefined') {
-            const appointments = await getAppointmentsForMonth(year, month);
-            // Map appointments by date string "YYYY-MM-DD"
-            appointments.forEach(app => {
-                if (!appointmentsMap.has(app.date)) {
-                    appointmentsMap.set(app.date, []);
-                }
-                appointmentsMap.get(app.date).push(app);
-            });
-        }
-    } catch (e) {
-        console.log("Could not fetch appointments (Firebase might not be ready)", e);
-    }
-
-    // Add empty cells for days before the first day of month
+    // 1. Render Structure IMMEDIATELY (Synchronous)
     const firstDayOfWeek = firstDay.getDay(); // 0=Sunday, 1=Monday, etc.
     let emptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Adjust for Monday start
     for (let i = 0; i < emptyDays; i++) {
@@ -125,32 +108,50 @@ async function generatePublicCalendar(year, month) {
 
     const today = new Date();
 
-    // Add cells for each day of month
     for (let i = 1; i <= lastDay.getDate(); i++) {
-        // Construct date string manually to avoid timezone issues: YYYY-MM-DD
-        // Pad month and day with leading zeros if needed
         const monthStr = String(month + 1).padStart(2, '0');
         const dayStr = String(i).padStart(2, '0');
-        const dateString = `${year}-${monthStr}-${dayStr}`;
+        const dateString = `${year}-${monthStr}-${dayStr}`; // ID for later update
 
-        const dayAppointments = appointmentsMap.get(dateString) || [];
-
-        let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden transition hover:bg-gray-50";
+        let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden transition hover:bg-gray-50 relative";
         if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
             dayClass += " calendar-today";
         }
-        if (dayAppointments.length > 0) {
-            dayClass += " bg-blue-50";
-        }
 
-        days += `<div class="${dayClass}">
+        // Add ID to cell for async update
+        days += `<div id="day-${dateString}" class="${dayClass}">
             <div class="font-medium text-gray-700">${i}</div>
-            ${dayAppointments.length > 0 ? `<div class="text-xs text-blue-600 font-medium mt-1"><i class="fas fa-check-circle mr-1"></i>Gebucht</div>` : ''}
+            <div class="appointment-indicator"></div> 
         </div>`;
     }
 
     const calendarDays = document.getElementById('public-calendar-days');
     if (calendarDays) calendarDays.innerHTML = days;
+
+    // 2. Fetch Data Asynchronously (Fire and Forget update)
+    try {
+        if (typeof firebase !== 'undefined') {
+            const appointments = await getAppointmentsForMonth(year, month);
+
+            // Update UI with data
+            appointments.forEach(app => {
+                const cell = document.getElementById(`day-${app.date}`);
+                if (cell) {
+                    // Add blue background
+                    if (!cell.classList.contains('bg-blue-50')) {
+                        cell.classList.add('bg-blue-50');
+                    }
+                    // Add indicator if not present
+                    const indicator = cell.querySelector('.appointment-indicator');
+                    if (indicator && indicator.innerHTML === "") {
+                        indicator.innerHTML = `<div class="text-xs text-blue-600 font-medium mt-1"><i class="fas fa-check-circle mr-1"></i>Gebucht</div>`;
+                    }
+                }
+            });
+        }
+    } catch (e) {
+        console.log("Could not fetch appointments (Firebase might not be ready or offline)", e);
+    }
 }
 
 function prevPublicMonth() {
@@ -597,6 +598,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0 }); // Changed from 0.1 to 0 for better mobile detection
 
     sections.forEach(section => {
+        // Exclude calendar from animation to ensure it's always visible on mobile
+        if (section.id === 'calendar') return;
+
         section.classList.add('section-hidden');
         observer.observe(section);
     });
@@ -756,4 +760,3 @@ window.addEventListener('load', () => {
         }
     }, 1000);
 });
-
