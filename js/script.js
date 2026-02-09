@@ -123,6 +123,8 @@ async function generatePublicCalendar(year, month) {
         days += `<div class="h-16 border border-gray-200 bg-gray-100"></div>`;
     }
 
+    const today = new Date();
+
     // Add cells for each day of month
     for (let i = 1; i <= lastDay.getDate(); i++) {
         // Construct date string manually to avoid timezone issues: YYYY-MM-DD
@@ -134,6 +136,9 @@ async function generatePublicCalendar(year, month) {
         const dayAppointments = appointmentsMap.get(dateString) || [];
 
         let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden transition hover:bg-gray-50";
+        if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+            dayClass += " calendar-today";
+        }
         if (dayAppointments.length > 0) {
             dayClass += " bg-blue-50";
         }
@@ -205,6 +210,8 @@ async function generateCalendar(date) {
         days += `<div class="h-24 border border-gray-200 bg-gray-100"></div>`;
     }
 
+    const today = new Date();
+
     // Add cells for each day of month
     for (let i = 1; i <= lastDay.getDate(); i++) {
         // Construct date string manually: YYYY-MM-DD
@@ -233,7 +240,10 @@ async function generateCalendar(date) {
             </div>`;
         });
 
-        days += `<div class="h-24 border border-gray-200 p-1 overflow-auto transition hover:bg-gray-50">
+        const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
+        const dayClass = `h-24 border border-gray-200 p-1 overflow-auto transition hover:bg-gray-50${isToday ? ' calendar-today' : ''}`;
+
+        days += `<div class="${dayClass}">
             <div class="font-medium text-gray-700 mb-1">${i}</div>
             ${appointmentHtml}
         </div>`;
