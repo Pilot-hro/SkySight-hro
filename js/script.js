@@ -671,36 +671,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Back to Top Button Logic
+    // Safe Back to Top Logic
     const backToTopBtn = document.getElementById('back-to-top');
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.remove('hidden');
-            // Small timeout to allow transition
-            setTimeout(() => {
-                backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
-            }, 10);
-        } else {
-            backToTopBtn.classList.add('opacity-0', 'translate-y-10');
-            // Wait for transition to finish before hiding
-            setTimeout(() => {
-                if (window.scrollY <= 300) backToTopBtn.classList.add('hidden');
-            }, 300);
-        }
-
-        // Header Optimization (Shrink on scroll)
-        const nav = document.querySelector('nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('py-0', 'shadow-md');
-            nav.classList.remove('py-2'); // Assuming initial padding was py-2 or similar default
-        } else {
-            nav.classList.remove('py-0', 'shadow-md');
-            // nav.classList.add('py-2'); 
-        }
-    });
-
     if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('hidden');
+                setTimeout(() => {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                }, 10);
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+                setTimeout(() => {
+                    if (window.scrollY <= 300) backToTopBtn.classList.add('hidden');
+                }, 300);
+            }
+
+            // Header Optimization
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('py-0', 'shadow-md');
+                    nav.classList.remove('py-2');
+                } else {
+                    nav.classList.remove('py-0', 'shadow-md');
+                }
+            }
+        });
+
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
@@ -709,26 +708,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cookie Banner Logic
+    // Safe Cookie Banner Logic
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptCookiesBtn = document.getElementById('accept-cookies');
 
-    if (!localStorage.getItem('cookiesAccepted')) {
+    if (cookieBanner && !localStorage.getItem('cookiesAccepted')) {
         setTimeout(() => {
             cookieBanner.classList.remove('hidden');
-        }, 1000); // Show after 1 second
+        }, 1000);
     }
 
     if (acceptCookiesBtn) {
         acceptCookiesBtn.addEventListener('click', () => {
             localStorage.setItem('cookiesAccepted', 'true');
-            cookieBanner.classList.add('opacity-0');
-            setTimeout(() => {
-                cookieBanner.classList.add('hidden');
-            }, 500);
+            if (cookieBanner) {
+                cookieBanner.classList.add('opacity-0');
+                setTimeout(() => {
+                    cookieBanner.classList.add('hidden');
+                }, 500);
+            }
         });
+    }
+
+    // Safe Leaflet Map initialization
+    if (document.getElementById('coverage-map') && typeof L !== 'undefined') {
+        try {
+            const map = L.map('coverage-map').setView([54.0924413, 12.0795075], 11);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.circle([54.0924413, 12.0795075], {
+                color: '#3b82f6',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.2,
+                radius: 20000
+            }).addTo(map);
+
+            L.marker([54.0924413, 12.0795075]).addTo(map)
+                .bindPopup('Rostock<br>20km Radius')
+                .openPopup();
+        } catch (e) {
+            console.error("Map initialization failed:", e);
+        }
     }
 
     // Initialize calendar
     initPublicCalendar();
+});
+
+// Fallback: Ensure calendar loads even if DOMContentLoaded missed or Firebase late
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const monthEl = document.getElementById('public-current-month');
+        if (monthEl && monthEl.textContent === 'Lade Kalender...') {
+            console.log("Fallback: Initializing calendar...");
+            initPublicCalendar();
+        }
+    }, 1000);
 });
