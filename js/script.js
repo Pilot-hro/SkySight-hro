@@ -614,12 +614,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.classList.add('section-show');
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0 }); // Changed from 0.1 to 0 for better mobile detection
 
     sections.forEach(section => {
         section.classList.add('section-hidden');
         observer.observe(section);
     });
+
+    // Fallback: Force all sections to show after 1 second (safety for mobile)
+    setTimeout(() => {
+        sections.forEach(section => {
+            if (!section.classList.contains('section-show')) {
+                section.classList.add('section-show');
+            }
+        });
+    }, 1000);
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
