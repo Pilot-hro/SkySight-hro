@@ -77,31 +77,46 @@ function closeAdminCalendar() {
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
+let publicCurrentMonth = new Date().getMonth();
+let publicCurrentYear = new Date().getFullYear();
+
 // Initialize public calendar
 function initPublicCalendar() {
-    generatePublicCalendar(new Date());
+    generatePublicCalendar(publicCurrentYear, publicCurrentMonth);
 }
 
-async function generatePublicCalendar(date) {
+async function generatePublicCalendar(year, month) {
     const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
-    // Adjust for UTC+2 timezone
-    const adjustedDate = new Date(date);
-    adjustedDate.setHours(date.getHours() + 2);
-
     const monthEl = document.getElementById('public-current-month');
     if (monthEl) {
-        monthEl.textContent = `${monthNames[adjustedDate.getMonth()]} ${adjustedDate.getFullYear()}`;
+        monthEl.textContent = `${monthNames[month]} ${year}`;
     }
 
-    const firstDay = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), 1);
-    const lastDay = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth() + 1, 0);
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
 
     let days = "";
 
+    // Optimization: Fetch all appointments for the month at once
+    let appointmentsMap = new Map();
+    try {
+        if (typeof firebase !== 'undefined') {
+            const appointments = await getAppointmentsForMonth(year, month);
+            // Map appointments by date string "YYYY-MM-DD"
+            appointments.forEach(app => {
+                if (!appointmentsMap.has(app.date)) {
+                    appointmentsMap.set(app.date, []);
+                }
+                appointmentsMap.get(app.date).push(app);
+            });
+        }
+    } catch (e) {
+        console.log("Could not fetch appointments (Firebase might not be ready)", e);
+    }
+
     // Add empty cells for days before the first day of month
-    // Using Monday as first day (1) in JavaScript Date
     const firstDayOfWeek = firstDay.getDay(); // 0=Sunday, 1=Monday, etc.
     let emptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Adjust for Monday start
     for (let i = 0; i < emptyDays; i++) {
@@ -110,27 +125,22 @@ async function generatePublicCalendar(date) {
 
     // Add cells for each day of month
     for (let i = 1; i <= lastDay.getDate(); i++) {
-        // Create date in local timezone (UTC+2)
-        const currentDate = new Date(adjustedDate.getFullYear(), adjustedDate.getMonth(), i);
-        currentDate.setHours(12, 0, 0, 0); // Set to midday to avoid timezone issues
+        // Construct date string manually to avoid timezone issues: YYYY-MM-DD
+        // Pad month and day with leading zeros if needed
+        const monthStr = String(month + 1).padStart(2, '0');
+        const dayStr = String(i).padStart(2, '0');
+        const dateString = `${year}-${monthStr}-${dayStr}`;
 
-        let appointments = [];
-        try {
-            if (typeof firebase !== 'undefined') {
-                appointments = await getAppointmentsForDate(currentDate);
-            }
-        } catch (e) {
-            console.log("Could not fetch appointments (Firebase might not be ready)", e);
-        }
+        const dayAppointments = appointmentsMap.get(dateString) || [];
 
-        let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden";
-        if (appointments.length > 0) {
+        let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden transition hover:bg-gray-50";
+        if (dayAppointments.length > 0) {
             dayClass += " bg-blue-50";
         }
 
         days += `<div class="${dayClass}">
-            <div class="font-medium">${i}</div>
-            ${appointments.length > 0 ? '<div class="text-xs text-blue-600">Termin gebucht</div>' : ''}
+            <div class="font-medium text-gray-700">${i}</div>
+            ${dayAppointments.length > 0 ? `<div class="text-xs text-blue-600 font-medium mt-1"><i class="fas fa-check-circle mr-1"></i>Gebucht</div>` : ''}
         </div>`;
     }
 
@@ -138,17 +148,55 @@ async function generatePublicCalendar(date) {
     if (calendarDays) calendarDays.innerHTML = days;
 }
 
+function prevPublicMonth() {
+    publicCurrentMonth--;
+    if (publicCurrentMonth < 0) {
+        publicCurrentMonth = 11;
+        publicCurrentYear--;
+    }
+    generatePublicCalendar(publicCurrentYear, publicCurrentMonth);
+}
+
+function nextPublicMonth() {
+    publicCurrentMonth++;
+    if (publicCurrentMonth > 11) {
+        publicCurrentMonth = 0;
+        publicCurrentYear++;
+    }
+    generatePublicCalendar(publicCurrentYear, publicCurrentMonth);
+}
+
 async function generateCalendar(date) {
     const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
         "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
-    document.getElementById('current-month').textContent =
-        `${monthNames[date.getMonth()]} ${date.getYear() + 1900}`;
+    const year = date.getFullYear();
+    const month = date.getMonth();
 
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    document.getElementById('current-month').textContent =
+        `${monthNames[month]} ${year}`;
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
 
     let days = "";
+
+    // Optimization: Fetch all appointments for the month at once
+    let appointmentsMap = new Map();
+    try {
+        if (typeof firebase !== 'undefined') {
+            const appointments = await getAppointmentsForMonth(year, month);
+            // Map appointments by date string "YYYY-MM-DD"
+            appointments.forEach(app => {
+                if (!appointmentsMap.has(app.date)) {
+                    appointmentsMap.set(app.date, []);
+                }
+                appointmentsMap.get(app.date).push(app);
+            });
+        }
+    } catch (e) {
+        console.log("Could not fetch appointments (Firebase might not be ready)", e);
+    }
 
     // Add empty cells for days before the first day of month
     const firstDayOfWeek = firstDay.getDay();
@@ -159,22 +207,34 @@ async function generateCalendar(date) {
 
     // Add cells for each day of month
     for (let i = 1; i <= lastDay.getDate(); i++) {
-        const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-        currentDate.setHours(12, 0, 0, 0);
-        const appointments = await getAppointmentsForDate(currentDate);
+        // Construct date string manually: YYYY-MM-DD
+        const monthStr = String(month + 1).padStart(2, '0');
+        const dayStr = String(i).padStart(2, '0');
+        const dateString = `${year}-${monthStr}-${dayStr}`;
+
+        const appointments = appointmentsMap.get(dateString) || [];
 
         let appointmentHtml = "";
         appointments.forEach(app => {
-            appointmentHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded truncate flex justify-between items-center">
+            // Check if app.date is defined to avoid errors (though it should be if in the map)
+            const safeDate = app.date || dateString;
+            // Find the index in the original list if needed, or just pass ID if we refactor deleteAppointment
+            // For now, we need the index relative to the day's list or the global list?
+            // The original code used global fetching for day, so index was relative to that day's list. 
+            // BUT wait, deleteAppointment uses (dateStr, index). 
+            // We must ensure the index matches what getAppointmentsForDate would return.
+            // Since we simply filtered by date, the order should be preserved if filtered correctly.
+            // Let's rely on the order in appointmentsMap.get(dateString).
+            appointmentHtml += `<div class="text-xs p-1 mb-1 bg-blue-100 text-blue-800 rounded truncate flex justify-between items-center group">
                 <span>${app.time} - ${app.name}</span>
-                <button onclick="deleteAppointment('${app.date}', ${appointments.indexOf(app)})" class="text-red-500 hover:text-red-700 ml-2">
+                <button onclick="deleteAppointment('${safeDate}', ${appointments.indexOf(app)})" class="text-red-500 hover:text-red-700 ml-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </div>`;
         });
 
-        days += `<div class="h-24 border border-gray-200 p-1 overflow-auto">
-            <div class="font-medium">${i}</div>
+        days += `<div class="h-24 border border-gray-200 p-1 overflow-auto transition hover:bg-gray-50">
+            <div class="font-medium text-gray-700 mb-1">${i}</div>
             ${appointmentHtml}
         </div>`;
     }
@@ -216,6 +276,23 @@ async function getAppointmentsForDate(date) {
     const snapshot = await firebase.firestore().collection('appointments')
         .where('date', '==', dateStr)
         .get();
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+async function getAppointmentsForMonth(year, month) {
+    // Construct start and end dates for the query
+    // Start: YYYY-MM-01
+    const startStr = `${year}-${String(month + 1).padStart(2, '0')}-01`;
+
+    // End: YYYY-MM-LastDay
+    const lastDay = new Date(year, month + 1, 0).getDate();
+    const endStr = `${year}-${String(month + 1).padStart(2, '0')}-${lastDay}`;
+
+    const snapshot = await firebase.firestore().collection('appointments')
+        .where('date', '>=', startStr)
+        .where('date', '<=', endStr)
+        .get();
+
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
@@ -581,6 +658,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon.classList.add('fa-moon');
                 }
             }
+        });
+    }
+
+    // Back to Top Button Logic
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.remove('hidden');
+            // Small timeout to allow transition
+            setTimeout(() => {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-10');
+            }, 10);
+        } else {
+            backToTopBtn.classList.add('opacity-0', 'translate-y-10');
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                if (window.scrollY <= 300) backToTopBtn.classList.add('hidden');
+            }, 300);
+        }
+
+        // Header Optimization (Shrink on scroll)
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('py-0', 'shadow-md');
+            nav.classList.remove('py-2'); // Assuming initial padding was py-2 or similar default
+        } else {
+            nav.classList.remove('py-0', 'shadow-md');
+            // nav.classList.add('py-2'); 
+        }
+    });
+
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Cookie Banner Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptCookiesBtn = document.getElementById('accept-cookies');
+
+    if (!localStorage.getItem('cookiesAccepted')) {
+        setTimeout(() => {
+            cookieBanner.classList.remove('hidden');
+        }, 1000); // Show after 1 second
+    }
+
+    if (acceptCookiesBtn) {
+        acceptCookiesBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.add('opacity-0');
+            setTimeout(() => {
+                cookieBanner.classList.add('hidden');
+            }, 500);
         });
     }
 
