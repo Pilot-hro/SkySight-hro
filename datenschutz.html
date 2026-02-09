@@ -23,6 +23,34 @@
                         <img class="h-10 mr-2" src="logo.png" alt="SkySight Logo">
                         <span class="font-bold text-xl text-gray-900">SkySight Rostock</span>
                     </a>
+                    <button id="theme-toggle"
+                        class="ml-4 p-2 rounded-full text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                    </button>
+                    <script>
+                        const toggle = document.getElementById('theme-toggle');
+                        const icon = document.getElementById('theme-icon');
+                        const body = document.body;
+
+                        if (localStorage.theme === 'dark') {
+                            body.classList.add('dark');
+                            icon.classList.remove('fa-moon');
+                            icon.classList.add('fa-sun');
+                        }
+
+                        toggle.addEventListener('click', () => {
+                            body.classList.toggle('dark');
+                            if (body.classList.contains('dark')) {
+                                localStorage.theme = 'dark';
+                                icon.classList.remove('fa-moon');
+                                icon.classList.add('fa-sun');
+                            } else {
+                                localStorage.theme = 'light';
+                                icon.classList.remove('fa-sun');
+                                icon.classList.add('fa-moon');
+                            }
+                        });
+                    </script>
                 </div>
                 <div class="flex items-center">
                     <a href="index.html" class="text-blue-600 hover:text-blue-800 font-medium">Zurück zur Startseite</a>

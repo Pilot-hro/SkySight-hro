@@ -10,13 +10,16 @@
         content="Drohne, Drohnenvideos, Aufnahmen,Luft, Video, Luftaufnahmen, Rostock, SkySight, Drohnenservice">
     <meta name="author" content="SkySight HRO">
     <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://weatherwidget.io https://forecast7.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://*.tile.openstreetmap.org https://weatherwidget.io https://forecast7.com; connect-src 'self' https://weatherwidget.io https://forecast7.com https://*.googleapis.com https://*.firebaseio.com; frame-src 'self' https://weatherwidget.io https://forecast7.com https://drohne-e34ef.firebaseapp.com;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="canonical" href="https://pilot-hro.github.io/SkySight-hro/">
 
     <title>SkySight HRO – Drohnenvideos aus Rostock</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="icon.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icon.png">
 
     <!-- Open Graph -->
@@ -448,7 +451,8 @@
                         <div class="mt-8 bg-white shadow rounded-lg p-4 mb-8">
                             <h3 class="text-lg font-medium text-gray-900 mb-3">Wettervorhersage Rostock</h3>
                             <a class="weatherwidget-io" href="https://forecast7.com/de/54d0912d10/rostock/"
-                                data-label_1="ROSTOCK" data-label_2="WETTER" data-theme="pure">Rostock Wetter</a>
+                                data-label_1="ROSTOCK" data-label_2="WETTER" data-theme="pure"
+                                rel="noopener noreferrer">Rostock Wetter</a>
                             <!-- Script for this is deferred in head/footer or managed differently? 
                                  Weatherwidget often needs its own script inline or close by. 
                                  I'll leave the script here or use the one in script.js if possible, 
@@ -568,7 +572,8 @@
                                                 <label for="privacy" class="font-medium text-gray-700">Ich stimme der
                                                     Verarbeitung meiner Daten gemäß der <a href="datenschutz.html"
                                                         target="_blank"
-                                                        class="text-blue-600 hover:text-blue-500 underline">Datenschutzerklärung</a>
+                                                        class="text-blue-600 hover:text-blue-500 underline"
+                                                        rel="noopener noreferrer">Datenschutzerklärung</a>
                                                     zu *</label>
                                             </div>
                                         </div>
@@ -600,7 +605,15 @@
                 </div>
                 <div class="bg-white rounded-lg shadow p-6 max-w-4xl mx-auto">
                     <div class="flex justify-between items-center mb-4">
+                        <button onclick="prevPublicMonth()"
+                            class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                            <i class="fas fa-chevron-left text-xl"></i>
+                        </button>
                         <h3 class="text-xl font-semibold" id="public-current-month">Lade Kalender...</h3>
+                        <button onclick="nextPublicMonth()"
+                            class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                            <i class="fas fa-chevron-right text-xl"></i>
+                        </button>
                     </div>
                     <div class="grid grid-cols-7 gap-1 mb-2">
                         <div class="text-center font-medium">Mo</div>
@@ -645,6 +658,19 @@
                             <div class="faq-answer hidden px-6 pb-5 transition-all duration-300 overflow-hidden">
                                 <p class="text-gray-600">In der Regel erhalten Sie das fertige Video innerhalb von 3-5
                                     Werktagen nach dem Dreh.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <button
+                                class="w-full px-6 py-5 text-left focus:outline-none faq-question flex justify-between items-center">
+                                <span class="text-lg font-medium text-gray-900">Was passiert bei schlechtem
+                                    Wetter?</span>
+                                <i class="fas fa-chevron-down text-blue-600 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden px-6 pb-5 transition-all duration-300 overflow-hidden">
+                                <p class="text-gray-600">Wir prüfen die Wetterlage 24 Stunden vor dem Termin. Sollte das
+                                    Wetter nicht geeignet sein (Regen, starker Wind), vereinbaren wir kostenfrei einen
+                                    Ersatztermin.</p>
                             </div>
                         </div>
                     </div>
@@ -715,6 +741,20 @@
             </div>
         </footer>
 
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner"
+        class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white p-6 rounded-lg shadow-2xl border border-gray-200 z-50 flex flex-col gap-4 animate-[fadeInUp_0.5s_ease-out]">
+        <h3 class="font-bold text-lg text-gray-900">Cookie-Hinweis</h3>
+        <p class="text-sm text-gray-600">Wir nutzen technisch notwendige Cookies und externe Dienste (Karten, Wetter,
+            Fonts), um Ihnen das beste Erlebnis zu bieten.</p>
+        <div class="flex gap-2">
+            <button id="accept-cookies"
+                class="flex-1 bg-blue-600 text-white px-4 py-2 rounded font-medium hover:bg-blue-700 transition duration-300">Verstanden</button>
+            <a href="datenschutz.html"
+                class="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded transition duration-300">Datenschutz</a>
+        </div>
     </div>
 
     <!-- Modals -->
