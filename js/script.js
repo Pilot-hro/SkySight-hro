@@ -586,26 +586,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
-    // Leaflet Map
-    if (document.getElementById('coverage-map')) {
-        const map = L.map('coverage-map').setView([54.0924413, 12.0795075], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        L.circle([54.0924413, 12.0795075], {
-            color: '#3b82f6',
-            fillColor: '#3b82f6',
-            fillOpacity: 0.2,
-            radius: 20000
-        }).addTo(map);
-
-        L.marker([54.0924413, 12.0795075]).addTo(map)
-            .bindPopup('Rostock<br>20km Radius')
-            .openPopup();
-    }
-
     // Scroll Fade-In
     const sections = document.querySelectorAll('section');
     const observer = new IntersectionObserver((entries) => {
@@ -776,3 +756,4 @@ window.addEventListener('load', () => {
         }
     }, 1000);
 });
+
