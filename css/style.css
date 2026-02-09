@@ -178,16 +178,26 @@ body.dark {
 }
 
 body.dark .bg-white {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
+    background-color: #111827 !important;
+    border-color: #1f2937 !important;
 }
 
 body.dark .bg-gray-50 {
-    background-color: #0f172a !important;
+    background-color: #111827 !important;
 }
 
 body.dark .bg-gray-100 {
+    background-color: #1f2937 !important;
+}
+
+body.dark .bg-white.shadow,
+body.dark .bg-white.shadow-sm,
+body.dark .bg-white.shadow-md,
+body.dark .bg-white.shadow-lg,
+body.dark .bg-white.shadow-xl,
+body.dark .bg-white.shadow-2xl {
     background-color: #1e293b !important;
+    border-color: #334155 !important;
 }
 
 body.dark .text-gray-900 {
@@ -235,6 +245,18 @@ body.dark .bg-yellow-50 {
 
 body.dark .text-yellow-700 {
     color: #fef08a !important;
+}
+
+.calendar-today {
+    background-color: #eff6ff;
+    border-color: #3b82f6 !important;
+    box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.6);
+}
+
+body.dark .calendar-today {
+    background-color: rgba(59, 130, 246, 0.2);
+    border-color: #60a5fa !important;
+    box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.6);
 }
 
 body.dark .service-card,
