@@ -423,6 +423,43 @@
             </div>
         </section>
 
+        <!-- Calendar Section -->
+        <section id="calendar" class="py-16 bg-white section-show">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Terminkalender</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Verfügbare Termine</p>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 max-w-4xl mx-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <button onclick="prevPublicMonth()"
+                            class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                            <i class="fas fa-chevron-left text-xl"></i>
+                        </button>
+                        <h3 class="text-xl font-semibold" id="public-current-month">Lade Kalender...</h3>
+                        <button onclick="nextPublicMonth()"
+                            class="text-gray-600 hover:text-blue-600 focus:outline-none">
+                            <i class="fas fa-chevron-right text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <div class="min-w-[600px]">
+                            <div class="grid grid-cols-7 gap-1 mb-2">
+                                <div class="text-center font-medium">Mo</div>
+                                <div class="text-center font-medium">Di</div>
+                                <div class="text-center font-medium">Mi</div>
+                                <div class="text-center font-medium">Do</div>
+                                <div class="text-center font-medium">Fr</div>
+                                <div class="text-center font-medium">Sa</div>
+                                <div class="text-center font-medium">So</div>
+                            </div>
+                            <div id="public-calendar-days" class="grid grid-cols-7 gap-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Booking Section -->
         <section id="booking" class="bg-white py-16">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -596,43 +633,6 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Calendar Section -->
-        <section id="calendar" class="py-16 bg-white section-show">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Terminkalender</h2>
-                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Verfügbare Termine</p>
-                </div>
-                <div class="bg-white rounded-lg shadow p-6 max-w-4xl mx-auto">
-                    <div class="flex justify-between items-center mb-4">
-                        <button onclick="prevPublicMonth()"
-                            class="text-gray-600 hover:text-blue-600 focus:outline-none">
-                            <i class="fas fa-chevron-left text-xl"></i>
-                        </button>
-                        <h3 class="text-xl font-semibold" id="public-current-month">Lade Kalender...</h3>
-                        <button onclick="nextPublicMonth()"
-                            class="text-gray-600 hover:text-blue-600 focus:outline-none">
-                            <i class="fas fa-chevron-right text-xl"></i>
-                        </button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <div class="min-w-[600px]">
-                            <div class="grid grid-cols-7 gap-1 mb-2">
-                                <div class="text-center font-medium">Mo</div>
-                                <div class="text-center font-medium">Di</div>
-                                <div class="text-center font-medium">Mi</div>
-                                <div class="text-center font-medium">Do</div>
-                                <div class="text-center font-medium">Fr</div>
-                                <div class="text-center font-medium">Sa</div>
-                                <div class="text-center font-medium">So</div>
-                            </div>
-                            <div id="public-calendar-days" class="grid grid-cols-7 gap-1"></div>
                         </div>
                     </div>
                 </div>
