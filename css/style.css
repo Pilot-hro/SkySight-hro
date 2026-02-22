@@ -257,8 +257,8 @@ body.dark .text-yellow-700 {
     }
 
     50% {
-        transform: scale(1.6);
-        opacity: 0.5;
+        transform: scale(1.5);
+        opacity: 0.6;
     }
 }
 
@@ -274,19 +274,28 @@ body.dark .text-yellow-700 {
 
 .cal-cell {
     position: relative;
-    aspect-ratio: 1 / 1;
+    min-height: 40px;
+    padding: 4px 2px;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 0.625rem;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 2px;
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: default;
-    overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+@media (min-width: 640px) {
+    .cal-cell {
+        min-height: 52px;
+        padding: 6px 4px;
+        gap: 3px;
+        border-radius: 0.625rem;
+    }
 }
 
 .cal-cell:hover:not(.cal-cell--empty) {
@@ -301,14 +310,21 @@ body.dark .text-yellow-700 {
     background: transparent;
     border-color: transparent;
     box-shadow: none;
+    min-height: 0;
 }
 
 .cal-day-number {
-    font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+    font-size: 0.7rem;
     font-weight: 700;
     color: #334155;
     line-height: 1;
     transition: color 0.2s;
+}
+
+@media (min-width: 640px) {
+    .cal-day-number {
+        font-size: 0.9rem;
+    }
 }
 
 /* ---- Today ---- */
@@ -341,6 +357,18 @@ body.dark .text-yellow-700 {
     box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.12), 0 2px 8px rgba(239, 68, 68, 0.1);
 }
 
+/* Bottom stripe — visible on any screen size */
+.cal-cell--booked::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ef4444, #f97316);
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
 .cal-cell--booked:hover {
     background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
     border-color: #ef4444 !important;
@@ -357,18 +385,25 @@ body.dark .text-yellow-700 {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 10px;
+    min-height: 8px;
 }
 
 .cal-dot {
     display: inline-block;
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: linear-gradient(135deg, #ef4444, #f97316);
     flex-shrink: 0;
     animation: calPulse 2s ease-in-out infinite;
     box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
+@media (min-width: 640px) {
+    .cal-dot {
+        width: 8px;
+        height: 8px;
+    }
 }
 
 /* ===== Dark mode calendar ===== */
