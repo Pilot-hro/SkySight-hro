@@ -247,16 +247,177 @@ body.dark .text-yellow-700 {
     color: #fef08a !important;
 }
 
-.calendar-today {
-    background-color: #eff6ff;
-    border-color: #3b82f6 !important;
-    box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.6);
+/* ===== Public Calendar Cells ===== */
+@keyframes calPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.6);
+        opacity: 0.5;
+    }
 }
 
-body.dark .calendar-today {
-    background-color: rgba(59, 130, 246, 0.2);
-    border-color: #60a5fa !important;
-    box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.6);
+@keyframes calShine {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.cal-cell {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.cal-cell:hover:not(.cal-cell--empty) {
+    transform: scale(1.08);
+    z-index: 2;
+    background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+    border-color: #60a5fa;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+.cal-cell--empty {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.cal-day-number {
+    font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+    font-weight: 700;
+    color: #334155;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+/* ---- Today ---- */
+.cal-cell--today {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25), 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.cal-cell--today::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background-size: 200% 100%;
+    animation: calShine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.cal-cell--today .cal-day-number {
+    color: #1e40af;
+    text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+/* ---- Booked ---- */
+.cal-cell--booked {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border-color: #f87171;
+    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.12), 0 2px 8px rgba(239, 68, 68, 0.1);
+}
+
+.cal-cell--booked:hover {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2), 0 0 0 1px rgba(239, 68, 68, 0.15) !important;
+}
+
+.cal-cell--booked .cal-day-number {
+    color: #991b1b;
+    font-weight: 800;
+}
+
+/* Dot indicator */
+.cal-dot-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10px;
+}
+
+.cal-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    flex-shrink: 0;
+    animation: calPulse 2s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+
+/* ===== Dark mode calendar ===== */
+body.dark .cal-cell {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .cal-cell:hover:not(.cal-cell--empty) {
+    background: linear-gradient(135deg, #1e3a5f 0%, #172554 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+body.dark .cal-cell--empty {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+body.dark .cal-day-number {
+    color: #cbd5e1;
+}
+
+body.dark .cal-cell--today {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(37, 99, 235, 0.2) 100%);
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.3), 0 4px 16px rgba(59, 130, 246, 0.2);
+}
+
+body.dark .cal-cell--today .cal-day-number {
+    color: #93c5fd;
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
+}
+
+body.dark .cal-cell--booked {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%);
+    border-color: rgba(248, 113, 113, 0.5);
+    box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.1), 0 2px 8px rgba(239, 68, 68, 0.12);
+}
+
+body.dark .cal-cell--booked .cal-day-number {
+    color: #fca5a5;
+}
+
+body.dark .cal-dot {
+    background: linear-gradient(135deg, #f87171, #fb923c);
+    box-shadow: 0 0 8px rgba(248, 113, 113, 0.6);
 }
 
 body.dark .service-card,
