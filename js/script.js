@@ -103,7 +103,7 @@ async function generatePublicCalendar(year, month) {
     const firstDayOfWeek = firstDay.getDay(); // 0=Sunday, 1=Monday, etc.
     let emptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Adjust for Monday start
     for (let i = 0; i < emptyDays; i++) {
-        days += `<div class="h-16 border border-gray-200 bg-gray-100"></div>`;
+        days += `<div class="cal-cell cal-cell--empty"></div>`;
     }
 
     const today = new Date();
@@ -111,40 +111,32 @@ async function generatePublicCalendar(year, month) {
     for (let i = 1; i <= lastDay.getDate(); i++) {
         const monthStr = String(month + 1).padStart(2, '0');
         const dayStr = String(i).padStart(2, '0');
-        const dateString = `${year}-${monthStr}-${dayStr}`; // ID for later update
+        const dateString = `${year}-${monthStr}-${dayStr}`;
 
-        let dayClass = "h-16 border border-gray-200 p-1 overflow-hidden transition hover:bg-gray-50 relative";
-        if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
-            dayClass += " calendar-today";
-        }
+        const isToday = year === today.getFullYear() && month === today.getMonth() && i === today.getDate();
+        const todayClass = isToday ? " cal-cell--today" : "";
 
-        // Add ID to cell for async update
-        days += `<div id="day-${dateString}" class="${dayClass}">
-            <div class="font-medium text-gray-700">${i}</div>
-            <div class="appointment-indicator"></div> 
+        days += `<div id="day-${dateString}" class="cal-cell${todayClass}">
+            <span class="cal-day-number">${i}</span>
+            <div class="cal-dot-wrap"></div>
         </div>`;
     }
 
     const calendarDays = document.getElementById('public-calendar-days');
     if (calendarDays) calendarDays.innerHTML = days;
 
-    // 2. Fetch Data Asynchronously (Fire and Forget update)
+    // 2. Fetch Data Asynchronously
     try {
         if (typeof firebase !== 'undefined') {
             const appointments = await getAppointmentsForMonth(year, month);
 
-            // Update UI with data
             appointments.forEach(app => {
                 const cell = document.getElementById(`day-${app.date}`);
                 if (cell) {
-                    // Add blue background
-                    if (!cell.classList.contains('bg-blue-50')) {
-                        cell.classList.add('bg-blue-50');
-                    }
-                    // Add indicator if not present
-                    const indicator = cell.querySelector('.appointment-indicator');
-                    if (indicator && indicator.innerHTML === "") {
-                        indicator.innerHTML = `<div class="text-xs text-blue-600 font-medium mt-1"><i class="fas fa-check-circle mr-1"></i>Gebucht</div>`;
+                    cell.classList.add('cal-cell--booked');
+                    const dotWrap = cell.querySelector('.cal-dot-wrap');
+                    if (dotWrap && dotWrap.innerHTML === "") {
+                        dotWrap.innerHTML = `<span class="cal-dot"></span>`;
                     }
                 }
             });
