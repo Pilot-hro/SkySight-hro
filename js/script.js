@@ -49,6 +49,75 @@ if (!firebaseReady) {
     }, 200);
 }
 
+/* --- Live Flight Status --- */
+
+async function updateFlightStatus() {
+    const dot = document.getElementById('flight-status-dot');
+    const text = document.getElementById('flight-status-text');
+    if (!dot || !text) return;
+
+    try {
+        // OpenWeatherMap free API - Rostock coordinates
+        const response = await fetch(
+            'https://api.openweathermap.org/data/2.5/weather?lat=54.0887&lon=12.1407&units=metric&lang=de&appid=bd5e378503939ddaee76f12ad7a97608'
+        );
+
+        if (!response.ok) throw new Error('Wetter konnte nicht geladen werden');
+
+        const data = await response.json();
+        const wind = data.wind.speed; // m/s
+        const windKmh = Math.round(wind * 3.6);
+        const weatherId = data.weather[0].id;
+        const visibility = data.visibility / 1000; // km
+        const description = data.weather[0].description;
+
+        // Bewertung der Flugbedingungen
+        let status, color, pingColor;
+
+        const isRain = weatherId >= 200 && weatherId < 700; // Gewitter, Regen, Schnee
+        const isFog = weatherId >= 700 && weatherId < 800; // Nebel, Dunst
+        const isStorm = wind > 10; // > 36 km/h
+        const isWindy = wind > 6; // > 21 km/h
+
+        if (isStorm || (isRain && weatherId < 300)) {
+            // Gewitter oder Sturm → Rot
+            status = `🔴 Kein Flug möglich – ${description}, ${windKmh} km/h Wind`;
+            color = 'bg-red-500';
+            pingColor = 'bg-red-400';
+        } else if (isRain || isFog || isWindy || visibility < 2) {
+            // Regen, Nebel, starker Wind → Gelb
+            status = `🟡 Eingeschränkt – ${description}, ${windKmh} km/h Wind`;
+            color = 'bg-yellow-400';
+            pingColor = 'bg-yellow-300';
+        } else {
+            // Gutes Wetter → Grün
+            status = `🟢 Optimale Flugbedingungen – ${description}, ${windKmh} km/h Wind`;
+            color = 'bg-green-500';
+            pingColor = 'bg-green-400';
+        }
+
+        text.textContent = status;
+
+        // Dot-Farbe aktualisieren
+        const pingSpan = dot.querySelector('.animate-ping');
+        const solidSpan = dot.querySelector('.relative');
+        if (pingSpan) {
+            pingSpan.className = `animate-ping absolute inline-flex h-full w-full rounded-full ${pingColor} opacity-75`;
+        }
+        if (solidSpan) {
+            solidSpan.className = `relative inline-flex rounded-full h-3 w-3 ${color}`;
+        }
+
+    } catch (error) {
+        console.error('Flugstatus-Fehler:', error);
+        text.textContent = 'Flugstatus nicht verfügbar';
+    }
+}
+
+// Status beim Laden und alle 10 Minuten aktualisieren
+updateFlightStatus();
+setInterval(updateFlightStatus, 600000);
+
 /* --- Easter Egg: 5x Logo Click → Admin Login --- */
 
 let logoClickCount = 0;
