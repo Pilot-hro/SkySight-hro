@@ -492,38 +492,16 @@ function buyPortfolioVideo(title, price) {
     form.insertBefore(hint, form.firstChild);
 }
 
-// --- Spam Protection ---
-let lastSubmitTime = 0;
-const SUBMIT_COOLDOWN_MS = 300000; // 5 Minuten Cooldown
-const MAX_SUBMISSIONS = 5; // Max 5 Anfragen pro Session
-let submissionCount = parseInt(sessionStorage.getItem('formSubmissions') || '0');
-
 // Email sending function
 async function sendEmail(e) {
     if (e) e.preventDefault();
     const form = document.getElementById('booking-form');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.innerHTML;
-
-    // Spam-Check: Max Anfragen erreicht?
-    if (submissionCount >= MAX_SUBMISSIONS) {
-        alert('Sie haben bereits ' + MAX_SUBMISSIONS + ' Anfragen gesendet. Bitte kontaktieren Sie uns direkt per Telefon oder E-Mail.');
-        return false;
-    }
-
-    // Spam-Check: Cooldown aktiv?
-    const now = Date.now();
-    const timeSinceLast = now - lastSubmitTime;
-    if (lastSubmitTime > 0 && timeSinceLast < SUBMIT_COOLDOWN_MS) {
-        const remainingSec = Math.ceil((SUBMIT_COOLDOWN_MS - timeSinceLast) / 1000);
-        alert('Bitte warten Sie noch ' + remainingSec + ' Sekunden, bevor Sie eine weitere Anfrage senden.');
-        return false;
-    }
-
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
 
     // Show loading state
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
     submitBtn.disabled = true;
 
@@ -549,29 +527,9 @@ async function sendEmail(e) {
     })
         .then(response => {
             if (response.ok) {
-                // Spam-Schutz: Cooldown + Counter setzen
-                lastSubmitTime = Date.now();
-                submissionCount++;
-                sessionStorage.setItem('formSubmissions', submissionCount.toString());
-
                 // Show success message
                 document.getElementById('form-success').classList.remove('hidden');
                 form.reset();
-
-                // Cooldown-Countdown auf dem Button anzeigen
-                let remaining = SUBMIT_COOLDOWN_MS / 1000;
-                submitBtn.innerHTML = `<i class="fas fa-clock"></i> Bitte warten (${remaining}s)`;
-                submitBtn.disabled = true;
-                const countdownInterval = setInterval(() => {
-                    remaining--;
-                    if (remaining <= 0) {
-                        clearInterval(countdownInterval);
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.disabled = false;
-                    } else {
-                        submitBtn.innerHTML = `<i class="fas fa-clock"></i> Bitte warten (${remaining}s)`;
-                    }
-                }, 1000);
 
                 // Restore hidden fields if they were hidden by portfolio buy
                 const fieldsToRestore = ['location', 'date', 'time', 'phone', 'service'];
@@ -597,6 +555,8 @@ async function sendEmail(e) {
         .catch(error => {
             alert('Es gab ein Problem beim Senden Ihrer Anfrage. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per Telefon.');
             console.error('Error:', error);
+        })
+        .finally(() => {
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
         });
