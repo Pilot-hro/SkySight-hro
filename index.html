@@ -96,7 +96,8 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <img class="h-10 mr-2" src="logo.png" alt="SkySight Rostock Logo">
+                        <img id="site-logo" class="h-10 mr-2 cursor-pointer select-none"
+                            style="transition: transform 0.15s ease;" src="logo.png" alt="SkySight Rostock Logo">
                         <span class="font-bold text-xl text-gray-900">SkySight Rostock</span>
                         <button id="theme-toggle"
                             class="ml-4 p-2 rounded-full text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">
@@ -116,8 +117,6 @@
                     <a href="#booking"
                         class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition duration-300">Anfrage
                         senden</a>
-                    <button onclick="showAdminLogin()"
-                        class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Login</button>
                 </div>
                 <div class="flex items-center md:hidden -mr-2">
                     <button type="button" id="mobile-menu-button"
