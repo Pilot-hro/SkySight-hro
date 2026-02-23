@@ -8,13 +8,45 @@ const firebaseConfig = {
     appId: "1:418105868792:web:abc123" // ← optional, falls vorhanden
 };
 
-// Initialize Firebase
-if (typeof firebase !== 'undefined') {
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-} else {
-    console.error("Firebase SDK not loaded");
+// Initialize Firebase — with retry for deferred script loading
+let firebaseReady = false;
+
+function initFirebase() {
+    if (typeof firebase !== 'undefined' && !firebaseReady) {
+        try {
+            firebase.initializeApp(firebaseConfig);
+            firebaseReady = true;
+            console.log("Firebase initialized successfully");
+        } catch (e) {
+            // Already initialized
+            if (e.code === 'app/duplicate-app') {
+                firebaseReady = true;
+            } else {
+                console.error("Firebase init error:", e);
+            }
+        }
+    }
+}
+
+// Try immediately
+initFirebase();
+
+// If Firebase SDK wasn't ready yet, poll until it is
+if (!firebaseReady) {
+    let firebaseRetries = 0;
+    const firebaseTimer = setInterval(() => {
+        firebaseRetries++;
+        if (typeof firebase !== 'undefined') {
+            initFirebase();
+            clearInterval(firebaseTimer);
+            // Firebase just became ready → reload appointments into calendar
+            console.log("Firebase loaded after " + (firebaseRetries * 200) + "ms — reloading appointments");
+            generatePublicCalendar(publicCurrentYear, publicCurrentMonth);
+        } else if (firebaseRetries > 50) { // 10 seconds max
+            clearInterval(firebaseTimer);
+            console.error("Firebase SDK did not load within 10 seconds");
+        }
+    }, 200);
 }
 
 /* --- Admin Functions --- */
@@ -127,7 +159,7 @@ async function generatePublicCalendar(year, month) {
 
     // 2. Fetch Data Asynchronously
     try {
-        if (typeof firebase !== 'undefined') {
+        if (firebaseReady) {
             const appointments = await getAppointmentsForMonth(year, month);
 
             appointments.forEach(app => {
@@ -140,6 +172,8 @@ async function generatePublicCalendar(year, month) {
                     }
                 }
             });
+        } else {
+            console.log("Firebase not ready yet — appointments will load when ready");
         }
     } catch (e) {
         console.log("Could not fetch appointments (Firebase might not be ready or offline)", e);
@@ -744,11 +778,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Fallback: Ensure calendar loads even if DOMContentLoaded missed or Firebase late
 window.addEventListener('load', () => {
+    // Fallback 1: Calendar structure never rendered
     setTimeout(() => {
         const monthEl = document.getElementById('public-current-month');
         if (monthEl && monthEl.textContent === 'Lade Kalender...') {
-            console.log("Fallback: Initializing calendar...");
+            console.log("Fallback: Initializing calendar structure...");
             initPublicCalendar();
         }
     }, 1000);
+
+    // Fallback 2: Calendar rendered but appointments might not have loaded
+    // (Firebase might have been late on slow mobile connections)
+    setTimeout(() => {
+        if (firebaseReady) {
+            const hasBookedCells = document.querySelector('.cal-cell--booked');
+            if (!hasBookedCells) {
+                console.log("Fallback: Reloading appointments (Firebase ready but no booked cells found)...");
+                generatePublicCalendar(publicCurrentYear, publicCurrentMonth);
+            }
+        }
+    }, 3000);
+
+    // Fallback 3: Last resort — try again after 6 seconds
+    setTimeout(() => {
+        if (typeof firebase !== 'undefined') {
+            initFirebase();
+            const hasBookedCells = document.querySelector('.cal-cell--booked');
+            if (!hasBookedCells) {
+                console.log("Fallback: Final attempt to load appointments...");
+                generatePublicCalendar(publicCurrentYear, publicCurrentMonth);
+            }
+        }
+    }, 6000);
 });
