@@ -49,6 +49,37 @@ if (!firebaseReady) {
     }, 200);
 }
 
+/* --- Easter Egg: 5x Logo Click → Admin Login --- */
+
+let logoClickCount = 0;
+let logoClickTimer = null;
+
+function initLogoEasterEgg() {
+    const logo = document.getElementById('site-logo');
+    if (!logo) return;
+
+    logo.addEventListener('click', () => {
+        logoClickCount++;
+
+        // Kleines visuelles Feedback: Logo kurz pulsieren
+        logo.style.transform = 'scale(1.15)';
+        setTimeout(() => { logo.style.transform = 'scale(1)'; }, 150);
+
+        // Timer zurücksetzen – nach 2s ohne Klick wird der Counter reset
+        clearTimeout(logoClickTimer);
+        logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+        }, 2000);
+
+        // Bei 5 Klicks: Login-Modal öffnen
+        if (logoClickCount >= 5) {
+            logoClickCount = 0;
+            clearTimeout(logoClickTimer);
+            showAdminLogin();
+        }
+    });
+}
+
 /* --- Admin Functions --- */
 
 function showAdminLogin() {
@@ -74,7 +105,6 @@ async function checkAdminLogin(e) {
 
     try {
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        // Store login state in localStorage
         localStorage.setItem('adminLoggedIn', 'true');
         closeAdminLogin();
         showAdminCalendar();
@@ -99,10 +129,10 @@ function closeAdminCalendar() {
     setTimeout(() => {
         calendar.classList.add('hidden');
     }, 300);
-    // Optional: Sign out when closing calendar
     firebase.auth().signOut();
     localStorage.removeItem('adminLoggedIn');
 }
+
 
 /* --- Calendar Functions --- */
 
@@ -537,6 +567,9 @@ async function sendEmail(e) {
 /* --- Initialization --- */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Easter Egg: 5x Logo klicken → Admin Login
+    initLogoEasterEgg();
+
     // Admin login form
     const adminLoginForm = document.getElementById('admin-login-form');
     if (adminLoginForm) adminLoginForm.addEventListener('submit', checkAdminLogin);
